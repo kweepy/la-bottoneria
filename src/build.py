@@ -20,7 +20,8 @@ from PIL import Image, ImageOps
 
 sys.path.insert(0, str(Path(__file__).parent))
 from contenuti import (CARTELLINO, CATEGORIE, CATEGORIE_HOME, CHI_SIAMO,  # noqa: E402
-                       HERO, NEGOZIO, ORARI, PERSONALIZZAZIONI, SCEGLI_TU)
+                       HERO, MERCERIA_INTRO, NEGOZIO, ORARI, PERSONALIZZAZIONI,
+                       SCEGLI_TU)
 
 import math  # noqa: E402
 
@@ -293,16 +294,44 @@ def visita_html():
 </section>"""
 
 
+ICONA_BORSA = ('<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12.5H6L5 8Z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></g></svg>')
+FRECCIA = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-5-5 5 5-5 5"/></svg>'
+
+
 def come_ordinare_html():
-    return f"""<aside class="come-ordinare">
-  <h2>Come si ordina?</h2>
-  <ol>
-    <li><b>Scrivici su WhatsApp</b> cosa ti interessa: ti mandiamo foto, fantasie disponibili e prezzi.</li>
-    <li><b>Scegli insieme a noi</b> tessuto, colore e personalizzazione.</li>
-    <li><b>Ritira in negozio</b> o chiedici della spedizione.</li>
-  </ol>
-  <a class="btn btn-wa" href="{wa()}" target="_blank" rel="noopener">{ICONA_WA}Scrivici su WhatsApp</a>
+    passi = [
+        (ICONA_WA, "Scrivici su WhatsApp", "Raccontaci cosa ti interessa: ti mandiamo foto, fantasie disponibili e prezzi."),
+        (icona("tailor"), "Scegli insieme a noi", "Tessuto, colore e personalizzazione: decidi tu, noi ti consigliamo."),
+        (ICONA_BORSA, "Ritira o ricevi", "Passa a ritirarlo in negozio in via Cremona, oppure chiedici della spedizione."),
+    ]
+    voci = "".join(f'<li><span class="ord-ico">{ic}</span><span class="ord-num">{n}</span><h3>{t}</h3><p>{d}</p></li>'
+                   for n, (ic, t, d) in enumerate(passi, 1))
+    return f"""<aside class="ordinare">
+  <header class="ord-testa">
+    <p class="occhiello">Semplice, su misura</p>
+    <h2>Come ordinare</h2>
+  </header>
+  <ol class="ord-passi">{voci}</ol>
+  <div class="azioni centro-flex"><a class="btn btn-chiaro" href="{wa()}" target="_blank" rel="noopener">{ICONA_WA}Scrivici su WhatsApp</a></div>
 </aside>"""
+
+
+def carosello(titolo, voci, cls=""):
+    frecce = ('<div class="car-frecce">'
+              '<button type="button" class="car-prec" aria-label="Indietro"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>'
+              '<button type="button" class="car-succ" aria-label="Avanti"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div>')
+    return f"""<section class="wrap sezione-stretta carosello {cls}" data-carosello>
+  <div class="car-testa"><h2 class="titolo-sez">{titolo}</h2>{frecce}</div>
+  <ul class="car-pista" tabindex="0" aria-label="{esc(titolo)}">{"".join(voci)}</ul>
+</section>"""
+
+
+def galleria_carosello(foto):
+    if not foto:
+        return ""
+    return carosello("Dal nostro laboratorio",
+                     [f'<li class="car-foto">{img(g, "", "(min-width: 900px) 25vw, 50vw")}</li>' for g in foto],
+                     "car-galleria")
 
 
 # ---------------------------------------------------------------- pagine
@@ -376,7 +405,7 @@ def scegli_tu_html():
 def card_pers(p):
     return f"""<li><a class="card-pers" href="{p['slug']}.html">
   <span class="card-pers-foto"><span class="card-pers-img">{img(p["foto"], "", "(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw")}</span>{icona(p["icona"])}</span>
-  <span class="card-pers-testo"><b>{p['nome']}</b><span>{p['breve']}</span><span class="btn btn-small">Scopri e personalizza →</span></span>
+  <span class="card-pers-testo"><b>{p['nome']}</b><span>{p['breve']}</span><span class="btn btn-small btn-bordo">Scopri e personalizza {FRECCIA}</span></span>
 </a></li>"""
 
 
@@ -410,6 +439,7 @@ def home():
     <p class="occhiello">In negozio</p>
     <h2>La merceria</h2>
     {DIVISORE}
+    <p class="lead">{MERCERIA_INTRO}</p>
   </header>
   {quattro_categorie()}
   <p class="centro"><a class="link-freccia" href="prodotti.html">Tutti i prodotti: neonato, asilo, casa, buoni regalo e altro →</a></p>
@@ -445,12 +475,8 @@ def categoria(c):
 </section>"""
     else:
         elenco = ""
-    gal = ""
-    if c["galleria"]:
-        gal = ('<section class="wrap sezione-stretta"><h2 class="titolo-sez">Dal nostro laboratorio</h2><ul class="galleria">'
-               + "".join(f'<li>{img(g, "", "(min-width: 900px) 25vw, 50vw")}</li>' for g in c["galleria"])
-               + "</ul></section>")
-    altre = [x for x in CATEGORIE if x["slug"] != c["slug"]][:4]
+    gal = galleria_carosello(c["galleria"])
+    altre = [x for x in CATEGORIE if x["slug"] != c["slug"]]
     corpo = f"""
 <nav class="briciole wrap" aria-label="Percorso"><a href="index.html">Home</a> / <a href="prodotti.html">Prodotti</a> / <span>{c['nome']}</span></nav>
 <section class="cat-testa wrap">
@@ -464,10 +490,7 @@ def categoria(c):
 {elenco}
 {gal}
 <section class="wrap sezione">{come_ordinare_html()}</section>
-<section class="wrap sezione">
-  <h2 class="titolo-sez">Altre categorie</h2>
-  {griglia_categorie(altre)}
-</section>
+{carosello("Altre categorie", [card_categoria(x, "(min-width: 1000px) 25vw, 60vw") for x in altre], "car-categorie")}
 """
     pagina(f"{c['slug']}.html", c["nome"], f"{c['nome']} alla Bottoneria di Brescia: {c['intro']}", corpo, attivo="prodotti.html")
 
@@ -495,11 +518,7 @@ def pagina_pers(p):
             f'<li><span>{esc(c)}</span><a href="{wa(f"Ciao! Per il {p["nome"].lower()} vorrei informazioni su: {c}")}" target="_blank" rel="noopener" aria-label="Chiedi informazioni su {esc(c)} via WhatsApp">Chiedi {ICONA_WA}</a></li>'
             for c in p["contiene"])
         contiene = f'<section class="wrap sezione-stretta"><h2 class="titolo-sez">{p["contiene_titolo"]}</h2><ul class="sottocat">{voci}</ul></section>'
-    gal = ""
-    if p["galleria"]:
-        gal = ('<section class="wrap sezione-stretta"><h2 class="titolo-sez">Dal nostro laboratorio</h2><ul class="galleria">'
-               + "".join(f'<li>{img(g, "", "(min-width: 900px) 25vw, 50vw")}</li>' for g in p["galleria"])
-               + "</ul></section>")
+    gal = galleria_carosello(p["galleria"])
     altre = "".join(card_pers(x) for x in PERSONALIZZAZIONI if x["slug"] != p["slug"])
     passi = ""
     if p["slug"] == "grembiulini":

@@ -117,3 +117,29 @@
   });
   avvia();
 })();
+
+// caroselli con frecce
+document.querySelectorAll("[data-carosello]").forEach(function (box) {
+  var pista = box.querySelector(".car-pista");
+  var prec = box.querySelector(".car-prec");
+  var succ = box.querySelector(".car-succ");
+  if (!pista || !prec || !succ) return;
+  function passo() {
+    var li = pista.querySelector("li");
+    if (!li) return pista.clientWidth;
+    var gap = parseFloat(getComputedStyle(pista).columnGap) || 0;
+    var n = Math.max(1, Math.floor((pista.clientWidth + gap) / (li.offsetWidth + gap)));
+    return n * (li.offsetWidth + gap);
+  }
+  function aggiorna() {
+    var max = pista.scrollWidth - pista.clientWidth - 2;
+    prec.disabled = pista.scrollLeft <= 2;
+    succ.disabled = pista.scrollLeft >= max;
+    box.querySelector(".car-frecce").hidden = max <= 0;
+  }
+  prec.addEventListener("click", function () { pista.scrollBy({ left: -passo(), behavior: "smooth" }); });
+  succ.addEventListener("click", function () { pista.scrollBy({ left: passo(), behavior: "smooth" }); });
+  pista.addEventListener("scroll", function () { window.requestAnimationFrame(aggiorna); }, { passive: true });
+  window.addEventListener("resize", aggiorna);
+  aggiorna();
+});

@@ -211,7 +211,7 @@ PERSONALIZZAZIONI = [
     {
         "slug": "set-nascita", "nome": "Set nascita", "icona": "gift-2",
         "foto": "la-bottoneria-brescia-10.jpg", "galleria": ["bottoneria-7.jpg", "IMG_8666.jpg", "casa.jpg", "IMG_8683.jpg"],
-        "breve": "Il corredo per il nuovo arrivato: lavette, bavagli, lenzuolini e fiocco nascita.",
+        "breve": "Il corredo per il nuovo arrivato in 100% cotone: lavette, bavagli, lenzuolini e fiocco nascita.",
         "intro": ("Per accogliere il nuovo arrivato prepariamo un corredo coordinato, cucito in puro cotone e "
                   "personalizzato con il nome o le iniziali. Un regalo unico anche per chi diventa nonno, zia o amica."),
         "scegli": ["I pezzi del corredo", "Tessuti e colori", "Il nome o le iniziali", "La confezione regalo"],
@@ -223,14 +223,19 @@ PERSONALIZZAZIONI = [
     {
         "slug": "regali-maestre", "nome": "Regali per le maestre", "icona": "gift",
         "foto": "regalo-maestra-best-teacher.jpg", "galleria": ["bottoneria-3.jpg", "idee_regalo.jpg", "image00034.jpg", "pochette.jpg"],
-        "breve": "Pochette, shopper e sacche ricamate per dire grazie alle maestre a fine anno.",
-        "intro": ("Per la fine dell'anno o per Natale, un pensiero fatto a mano per le maestre: pochette, "
+        "breve": "Grembiule personalizzato, pochette, shopper e sacche ricamate per dire grazie alle maestre a fine anno.",
+        "intro": ("Per la fine dell'anno o per Natale, un pensiero fatto a mano per le maestre: grembiule personalizzato, pochette, "
                   "shopper e sacche con l'iniziale, il nome della classe o una dedica ricamata."),
         "scegli": ["Il tipo di regalo", "Il tessuto", "Iniziale, nome o dedica da ricamare", "Il colore del filo"],
         "contiene_titolo": "Idee regalo",
-        "contiene": ["Pochette", "Shopper", "Sacche", "Beauty case"],
+        "contiene": ["Grembiule personalizzato", "Pochette", "Shopper", "Sacche", "Beauty case"],
     },
 ]
+
+# Testo sopra le quattro categorie della merceria in home
+MERCERIA_INTRO = ("Alla Bottoneria Merceria di Brescia trovi tutto quello che puoi desiderare da una merceria: "
+                  "bottoni, nastri, pizzi, elastici, aghi e fili. E soprattutto <strong>cotonine americane di qualità</strong>, "
+                  "<strong>filati DMC</strong> e tutto quello che serve per il <strong>cucito creativo</strong>.")
 
 # Le quattro categorie in fondo alla home (slug delle CATEGORIE qui sopra)
 CATEGORIE_HOME = ["buste-e-sacche", "tessuti", "novita", "merceria"]
