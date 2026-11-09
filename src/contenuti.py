@@ -234,8 +234,8 @@ PERSONALIZZAZIONI = [
 
 # Testo sopra le quattro categorie della merceria in home
 MERCERIA_INTRO = ("Alla Bottoneria Merceria di Brescia trovi tutto quello che puoi desiderare da una merceria: "
-                  "bottoni, nastri, pizzi, elastici, aghi e fili. E soprattutto <strong>cotonine americane di qualità</strong>, "
-                  "<strong>filati DMC</strong> e tutto quello che serve per il <strong>cucito creativo</strong>.")
+                  "bottoni, nastri, pizzi, elastici, aghi, fili, cotonine americane di qualità, filati DMC "
+                  "e tutto quello che serve per il cucito creativo.")
 
 # Le quattro categorie in fondo alla home (slug delle CATEGORIE qui sopra)
 CATEGORIE_HOME = ["buste-e-sacche", "tessuti", "novita", "merceria"]
