@@ -1,0 +1,94 @@
+--- pagine di spiegazione ---
+CHI SIAMO
+	storia
+	contatti
+	dove trovarci
+STORIA
+CONTATTI = DOVE TROVARCI
+PERSONALIZZAZIONI
+SET ASILO
+SET NASCITA
+
+--- pagine di prodotti o CATEGORIE ---
+NEONATO
+	accappatoi
+	asciugamani
+	bavagli
+	beauty case
+	borse
+	buste e sacche
+	copertinee
+	fasciatoio da passeggio
+	fiocchi nascita
+	sacchetti nascita
+	set lavette
+	set lenzuolini culla
+	set lenzuolini lettino
+	accessori doudou
+	accessori calzine
+	cappellini
+	
+BAMBINO
+	abitini
+	accessori
+	completi mare
+	costumini
+	gonne mamma e bimba
+	pigiamini
+	t-shirt ricamate
+	
+ASILO
+	accessori
+	bavaglie
+	grembiuli
+	sacchette
+	salviette
+	pettorine
+	tovagliette
+	tovaglioli
+	zainetti
+	portabavaglia
+	
+RICAMO
+	asilo
+	bagno
+	buste e sacche
+	cucina
+	neonato
+	arredo
+	su misura
+	
+MERCERIA
+	accessori
+	bottoni
+	bordi elastici
+	bordi/passamanerie
+	minuteria
+	pizzi
+	
+TESSUTI
+	cotonine americane
+	cotoni italiani
+	piquet
+	tele da ricamo
+	tinti in filo
+	lino
+	
+BUSTE E SACCHE
+	buste
+	sacche
+	shopper
+	
+CASA E ARREDAMENTO
+	bagno
+	casa
+	cesterie
+	cucina
+	
+LIBRI E SCHEMI
+
+NOVITÀ
+
+GIFTCARD
+
+OUTLET
