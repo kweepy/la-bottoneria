@@ -487,3 +487,24 @@ address { font-style: normal; }
 .cat-testo .passi { margin-bottom: 24px; }
 .card-pers-foto img { position: absolute; inset: 0; }
 .quattro img { position: absolute; inset: 0; }
+
+/* contatti con icone */
+.link-mappa { display: inline-flex; gap: 10px; align-items: flex-start; text-decoration: none; color: inherit; }
+.link-mappa .ico { margin-top: .25em; color: var(--verde); }
+.link-mappa span { text-decoration: underline; text-decoration-color: var(--bordo); text-underline-offset: .2em; }
+.link-mappa:hover span { text-decoration-color: currentColor; }
+.contatti-icone { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.contatti-icone a { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+.contatti-icone a span { text-decoration: underline; text-decoration-color: var(--bordo); text-underline-offset: .2em; }
+.contatti-icone a:hover span { text-decoration-color: currentColor; }
+.contatti-icone .ico {
+  width: 38px; height: 38px; padding: 9px; border-radius: 50%; background: var(--verde-chiaro); color: var(--verde); flex: none;
+}
+.contatti-box address { margin-bottom: 18px; }
+.contatti-piede { margin-top: 14px; gap: 8px; }
+.contatti-piede .ico { width: 32px; height: 32px; padding: 7px; background: rgba(255, 255, 255, .12); color: #fff; }
+.contatti-piede a span, .piede .link-mappa span { text-decoration-color: rgba(255, 255, 255, .35); }
+.piede .link-mappa .ico { color: #fff; }
+.piede address { font-size: .95rem; }
+.visita .link-mappa { color: var(--tenue); }
+.piede address { margin-bottom: 4px; }

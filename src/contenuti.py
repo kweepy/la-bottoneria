@@ -14,6 +14,7 @@ NEGOZIO = {
     "sottotitolo": "Merceria a Brescia",
     "indirizzo": "Via Cremona, 76",
     "cap_citta": "25124 Brescia",
+    "mappa": "https://maps.app.goo.gl/boP4J8TNVsKsBB378",   # link Google Maps dell'indirizzo
     "whatsapp": "393476002282",          # solo cifre, con prefisso 39
     "whatsapp_visibile": "+39 347 600 2282",
     "email": "info@labottoneria.it",
@@ -70,7 +71,7 @@ CATEGORIE = [
     {
         "slug": "asilo", "nome": "Asilo",
         "foto": "image00025.jpg",
-        "galleria": ["bottoneria-1.jpg", "image00042.jpg", "bottoneria-10.jpg"],
+        "galleria": ["grembiule.jpg", "set_asilo_zainetto_personalizzato.jpg", "zainetto_personalizzato.jpg", "pochette.jpg", "bottoneria-1.jpg", "image00042.jpg", "bottoneria-10.jpg"],
         "intro": "Grembiuli, sacchette e bavaglie per la scuola, con il nome ricamato perché nulla vada perso.",
         "sotto": ["Accessori", "Bavaglie", "Grembiuli", "Sacchette", "Salviette",
                   "Pettorine", "Tovagliette", "Tovaglioli", "Zainetti", "Portabavaglia"],
@@ -78,7 +79,7 @@ CATEGORIE = [
     {
         "slug": "ricamo", "nome": "Ricamo",
         "foto": "image00005.jpg",
-        "galleria": ["_1040309.jpg", "bottoneria-3.jpg", "bottoneria-10.jpg"],
+        "galleria": ["_1040309.jpg", "pochette.jpg", "zainetto_personalizzato.jpg", "regalo-maestra-best-teacher.jpg", "bottoneria-3.jpg", "bottoneria-10.jpg"],
         "intro": "Nomi, iniziali e disegni ricamati a macchina su capi, teli e accessori: scegli tu colore e scritta.",
         "sotto": ["Asilo", "Bagno", "Buste e sacche", "Cucina", "Neonato", "Arredo", "Su misura"],
     },
@@ -101,7 +102,7 @@ CATEGORIE = [
     {
         "slug": "buste-e-sacche", "nome": "Pochette e sacche",
         "foto": "image00034.jpg",
-        "galleria": ["idee_regalo.jpg", "bottoneria-3.jpg"],
+        "galleria": ["pochette.jpg", "regalo-maestra-best-teacher.jpg", "idee_regalo.jpg", "bottoneria-3.jpg"],
         "intro": "Pochette, sacche e shopper in cotone e lino, ricamate e pronte da regalare.",
         "sotto": ["Buste", "Sacche", "Shopper"],
     },
@@ -152,7 +153,7 @@ HERO = [
     {"foto": "bottoneria-1.jpg", "riga": "Su misura per te", "titolo": "Set asilo",
      "sotto": "Sacca, bavaglia e grembiulino con il nome del tuo bambino",
      "bottone": ("Scopri il set asilo", "set-asilo.html")},
-    {"foto": "bottoneria-7.jpg", "riga": "Su misura per te", "titolo": "Set nascita",
+    {"foto": "la-bottoneria-brescia-7.jpg", "riga": "Su misura per te", "titolo": "Set nascita",
      "sotto": "Il corredo per il nuovo arrivato, scelto e ricamato con te",
      "bottone": ("Scopri il set nascita", "set-nascita.html")},
 ]
@@ -176,7 +177,7 @@ SCEGLI_TU = {
 PERSONALIZZAZIONI = [
     {
         "slug": "nomi-ricamati", "nome": "Nomi ricamati", "icona": "abc",
-        "foto": "_1040309.jpg", "galleria": ["image00005.jpg", "bottoneria-10.jpg", "bottoneria-3.jpg", "image00033.jpg"],
+        "foto": "_1040309.jpg", "galleria": ["image00005.jpg", "pochette.jpg", "zainetto_personalizzato.jpg", "regalo-maestra-best-teacher.jpg", "bottoneria-10.jpg", "bottoneria-3.jpg", "image00033.jpg", "grembiule.jpg"],
         "breve": "Il nome, le iniziali o un disegno ricamati a macchina su quasi ogni capo e tessuto.",
         "intro": ("Realizziamo personalizzazioni su quasi tutti i tipi di capi e tessuti: asciugamani, "
                   "bavaglie, sacche, accappatoi, tovagliette. Scegli il colore e la scritta più adatti al tuo capo."),
@@ -187,7 +188,7 @@ PERSONALIZZAZIONI = [
     },
     {
         "slug": "grembiulini", "nome": "Grembiulini su misura", "icona": "uniform",
-        "foto": "image00025.jpg", "galleria": ["image00036.jpg", "bottoneria-1.jpg"],
+        "foto": "image00025.jpg", "galleria": ["grembiule.jpg", "image00036.jpg", "bottoneria-1.jpg"],
         "breve": "Grembiuli in 100% cotone per scuola materna ed elementare, cuciti sulle misure del bambino.",
         "intro": ("Realizziamo grembiuli in <strong>100% cotone su misura</strong> per scuola materna ed elementare, "
                   "con le fantasie scelte da voi. Possibilità di personalizzazione con nome e ricamo a macchina "
@@ -198,7 +199,7 @@ PERSONALIZZAZIONI = [
     },
     {
         "slug": "set-asilo", "nome": "Set asilo", "icona": "rucksack",
-        "foto": "image00042.jpg", "galleria": ["bottoneria-1.jpg", "image00025.jpg", "bottoneria-10.jpg"],
+        "foto": "image00042.jpg", "galleria": ["set_asilo_zainetto_personalizzato.jpg", "zainetto_personalizzato.jpg", "pochette.jpg", "grembiule.jpg", "bottoneria-1.jpg", "image00025.jpg", "bottoneria-10.jpg"],
         "breve": "Sacca, bavaglia, salvietta e tovaglietta coordinati, con il nome del bambino.",
         "intro": ("Il set per l'asilo lo componi tu: scegli i pezzi che servono, la fantasia e il nome da ricamare. "
                   "Tutto coordinato, tutto riconoscibile, così nulla va perso."),
@@ -221,7 +222,7 @@ PERSONALIZZAZIONI = [
     },
     {
         "slug": "regali-maestre", "nome": "Regali per le maestre", "icona": "gift",
-        "foto": "bottoneria-3.jpg", "galleria": ["idee_regalo.jpg", "image00034.jpg", "image00015.jpg"],
+        "foto": "regalo-maestra-best-teacher.jpg", "galleria": ["bottoneria-3.jpg", "idee_regalo.jpg", "image00034.jpg", "pochette.jpg"],
         "breve": "Pochette, shopper e sacche ricamate per dire grazie alle maestre a fine anno.",
         "intro": ("Per la fine dell'anno o per Natale, un pensiero fatto a mano per le maestre: pochette, "
                   "shopper e sacche con l'iniziale, il nome della classe o una dedica ricamata."),

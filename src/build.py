@@ -79,6 +79,24 @@ def wa(testo="Ciao! Vorrei qualche informazione."):
 
 ICONA_WA = ('<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.4 5 5.1-1.3A9.9 9.9 0 1 0 12.04 2Zm0 18.1a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3a8.2 8.2 0 1 1 6.9 3.8Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.4-.2Z"/></svg>')
 
+ICONA_TEL = ('<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M6.6 3.5h-2A1.6 1.6 0 0 0 3 5.2 15.8 15.8 0 0 0 18.8 21a1.6 1.6 0 0 0 1.7-1.6v-2a1.2 1.2 0 0 0-.9-1.2l-3.2-.9a1.2 1.2 0 0 0-1.2.3l-1.4 1.4a12 12 0 0 1-5-5l1.4-1.4a1.2 1.2 0 0 0 .3-1.2l-.9-3.2a1.2 1.2 0 0 0-1.2-.9Z"/></svg>')
+ICONA_MAIL = ('<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></g></svg>')
+ICONA_POS = ('<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></g></svg>')
+
+
+def indirizzo_link(sep="<br>"):
+    return (f'<a class="link-mappa" href="{NEGOZIO["mappa"]}" target="_blank" rel="noopener">'
+            f'{ICONA_POS}<span>{NEGOZIO["indirizzo"]}{sep}{NEGOZIO["cap_citta"]}</span></a>')
+
+
+def contatti_icone(cls="contatti-icone"):
+    return f"""<ul class="{cls}">
+  <li><a href="{wa()}" target="_blank" rel="noopener" aria-label="WhatsApp">{ICONA_WA}<span>{NEGOZIO['whatsapp_visibile']}</span></a></li>
+  <li><a href="tel:+{NEGOZIO['whatsapp']}" aria-label="Telefono">{ICONA_TEL}<span>{NEGOZIO['whatsapp_visibile']}</span></a></li>
+  <li><a href="mailto:{NEGOZIO['email']}" aria-label="Email">{ICONA_MAIL}<span>{NEGOZIO['email']}</span></a></li>
+</ul>"""
+
+
 DIVISORE = '<div class="divisore" aria-hidden="true"><span></span><i></i><i></i><span></span></div>'
 
 
@@ -185,9 +203,8 @@ def pagina(file, titolo, descrizione, corpo, attivo=None, extra_head=""):
     </div>
     <div class="piede-col">
       <h2>Vieni a trovarci</h2>
-      <address>{NEGOZIO['indirizzo']}<br>{NEGOZIO['cap_citta']}</address>
-      <p><a href="{wa()}" target="_blank" rel="noopener">WhatsApp {NEGOZIO['whatsapp_visibile']}</a><br>
-      <a href="mailto:{NEGOZIO['email']}">{NEGOZIO['email']}</a></p>
+      <address>{indirizzo_link()}</address>
+      {contatti_icone("contatti-icone contatti-piede")}
       <p class="social">{social}</p>
     </div>
     <div class="piede-col">
@@ -265,7 +282,7 @@ def visita_html():
     <div class="visita-testo">
       <p class="occhiello">Vieni a trovarci</p>
       <h2>In via Cremona, a Brescia</h2>
-      <address>{NEGOZIO['indirizzo']} · {NEGOZIO['cap_citta']}</address>
+      <address>{indirizzo_link(" · ")}</address>
       {orari_html()}
       <div class="azioni">
         <a class="btn" href="contatti.html">Come arrivare</a>
@@ -556,17 +573,13 @@ def contatti():
 <section class="wrap contatti-griglia">
   <div class="contatti-box">
     <h2>La Bottoneria Merceria</h2>
-    <address>{NEGOZIO['indirizzo']}<br>{NEGOZIO['cap_citta']}</address>
-    <ul class="contatti-lista">
-      <li><span>WhatsApp</span><a href="{wa()}" target="_blank" rel="noopener">{NEGOZIO['whatsapp_visibile']}</a></li>
-      <li><span>Telefono</span><a href="tel:+{NEGOZIO['whatsapp']}">{NEGOZIO['whatsapp_visibile']}</a></li>
-      <li><span>Email</span><a href="mailto:{NEGOZIO['email']}">{NEGOZIO['email']}</a></li>
-    </ul>
+    <address>{indirizzo_link()}</address>
+    {contatti_icone()}
     <h2>Orari di apertura</h2>
     {orari_html()}
     <div class="azioni">
       <a class="btn btn-wa" href="{wa()}" target="_blank" rel="noopener">{ICONA_WA}Scrivici su WhatsApp</a>
-      <a class="btn btn-ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination={q}" target="_blank" rel="noopener">Indicazioni stradali</a>
+      <a class="btn btn-ghost" href="{NEGOZIO['mappa']}" target="_blank" rel="noopener">Apri in Google Maps</a>
     </div>
   </div>
   <div class="mappa cucito" data-mappa="https://www.google.com/maps?q={q}&amp;output=embed">
