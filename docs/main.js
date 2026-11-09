@@ -76,3 +76,44 @@
     });
   });
 })();
+
+// apertura a scorrimento
+(function () {
+  var box = document.querySelector(".slider");
+  if (!box) return;
+  var slides = box.querySelectorAll(".slide");
+  var punti = box.querySelectorAll(".punti button");
+  var i = 0, timer = null;
+  var ridotto = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function vai(n) {
+    slides[i].classList.remove("attiva");
+    slides[i].setAttribute("aria-hidden", "true");
+    slides[i].querySelectorAll("a").forEach(function (a) { a.tabIndex = -1; });
+    punti[i].removeAttribute("aria-current");
+    i = (n + slides.length) % slides.length;
+    var s = slides[i];
+    // riavvia le animazioni (ricciolo che si disegna)
+    s.classList.remove("attiva"); void s.offsetWidth; s.classList.add("attiva");
+    s.removeAttribute("aria-hidden");
+    s.querySelectorAll("a").forEach(function (a) { a.removeAttribute("tabindex"); });
+    punti[i].setAttribute("aria-current", "true");
+  }
+  function avvia() { if (!ridotto) { ferma(); timer = setInterval(function () { vai(i + 1); }, 6500); } }
+  function ferma() { if (timer) clearInterval(timer); timer = null; }
+  box.querySelector(".freccia-sx").addEventListener("click", function () { vai(i - 1); avvia(); });
+  box.querySelector(".freccia-dx").addEventListener("click", function () { vai(i + 1); avvia(); });
+  punti.forEach(function (p, n) { p.addEventListener("click", function () { vai(n); avvia(); }); });
+  box.addEventListener("mouseenter", ferma);
+  box.addEventListener("mouseleave", avvia);
+  box.addEventListener("focusin", ferma);
+  // scorrimento col dito
+  var x0 = null;
+  box.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  box.addEventListener("touchend", function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) { vai(dx < 0 ? i + 1 : i - 1); avvia(); }
+    x0 = null;
+  });
+  avvia();
+})();

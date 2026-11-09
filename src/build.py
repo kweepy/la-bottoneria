@@ -19,8 +19,10 @@ from urllib.parse import quote
 from PIL import Image, ImageOps
 
 sys.path.insert(0, str(Path(__file__).parent))
-from contenuti import (CARTELLINO, CATEGORIE, CHI_SIAMO, NEGOZIO, ORARI,  # noqa: E402
-                       SU_MISURA)
+from contenuti import (CARTELLINO, CATEGORIE, CATEGORIE_HOME, CHI_SIAMO,  # noqa: E402
+                       HERO, NEGOZIO, ORARI, PERSONALIZZAZIONI, SCEGLI_TU)
+
+import math  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "src"
@@ -117,7 +119,7 @@ def jsonld():
 
 
 # ---------------------------------------------------------------- layout
-NAV = [("prodotti.html", "Prodotti"), ("su-misura.html", "Su misura e ricamo"),
+NAV = [("personalizzazioni.html", "Personalizzazioni"), ("prodotti.html", "Prodotti"),
        ("chi-siamo.html", "Chi siamo"), ("contatti.html", "Contatti")]
 
 
@@ -287,67 +289,116 @@ def come_ordinare_html():
 
 
 # ---------------------------------------------------------------- pagine
+def ricciolo_path(a=4.0, b0=16.0, b1=7.0, giri=3, spire=1.6, rs=9.0):
+    """Un filo che si arrotola: anelli che si stringono e finiscono in una spirale."""
+    pts = []
+    n = 300
+    tot = giri * 2 * math.pi
+    for i in range(n + 1):
+        t = i / n * tot
+        r = b0 + (b1 - b0) * i / n
+        pts.append((a * t + r * math.sin(t), 30 - r * math.cos(t)))
+    cx, cy = pts[-1][0], pts[-1][1] - rs
+    m = 120
+    for j in range(1, m + 1):
+        th = j / m * spire * 2 * math.pi
+        r = rs * (1 - 0.75 * j / m)
+        pts.append((cx + r * math.sin(th), cy + r * math.cos(th)))
+    mx = min(x for x, _ in pts) - 3
+    my = min(y for _, y in pts) - 3
+    d = "M" + " L".join(f"{x - mx:.1f},{y - my:.1f}" for x, y in pts)
+    w = max(x for x, _ in pts) - mx + 3
+    h = max(y for _, y in pts) - my + 3
+    return d, w, h
+
+
+RICCIOLO_D, RICCIOLO_W, RICCIOLO_H = ricciolo_path()
+
+
+def ricciolo(lato):
+    return (f'<svg class="ricciolo ricciolo-{lato}" viewBox="0 0 {RICCIOLO_W:.0f} {RICCIOLO_H:.0f}" aria-hidden="true">'
+            f'<path d="{RICCIOLO_D}" pathLength="1"/></svg>')
+
+
+def hero_html():
+    slides = []
+    for i, h in enumerate(HERO):
+        testo, href = h["bottone"]
+        slides.append(f"""<div class="slide{' attiva' if i == 0 else ''}" role="group" aria-roledescription="slide" aria-label="{i + 1} di {len(HERO)}"{'' if i == 0 else ' aria-hidden="true"'}>
+    {img(h["foto"], "", "100vw", cls="slide-foto", eager=(i == 0)).replace('loading="lazy"', 'loading="eager"')}
+    <div class="slide-testo">
+      <p class="slide-riga">{ricciolo("sx")}<span>{h['riga']}</span>{ricciolo("dx")}</p>
+      <{'h1' if i == 0 else 'p'} class="slide-titolo">{h['titolo']}</{'h1' if i == 0 else 'p'}>
+      <p class="slide-sotto">{h['sotto']}</p>
+      <a class="btn btn-chiaro" href="{href}"{'' if i == 0 else ' tabindex="-1"'}>{testo}</a>
+    </div>
+  </div>""")
+    punti = "".join(f'<button type="button" aria-label="Vai alla slide {i + 1}"{" aria-current=true" if i == 0 else ""}></button>' for i in range(len(HERO)))
+    return f"""<section class="slider" aria-roledescription="carousel" aria-label="In evidenza">
+  {"".join(slides)}
+  <button class="freccia freccia-sx" type="button" aria-label="Slide precedente"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <button class="freccia freccia-dx" type="button" aria-label="Slide successiva"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+  <div class="punti">{punti}</div>
+</section>"""
+
+
+def scegli_tu_html():
+    st = SCEGLI_TU
+    scelte = "".join(f'<li>{icona(i)}<h3>{t}</h3><p>{d}</p></li>' for i, t, d in st["scelte"])
+    return f"""<section class="scegli wrap">
+  <header class="sez-testa">
+    <p class="occhiello">{st['occhiello']}</p>
+    <h2>{st['titolo']}</h2>
+    {DIVISORE}
+    <p class="lead">{st['testo']}</p>
+  </header>
+  <ol class="scelte">{scelte}</ol>
+</section>"""
+
+
+def card_pers(p):
+    return f"""<li><a class="card-pers" href="{p['slug']}.html">
+  <span class="card-pers-foto">{img(p["foto"], "", "(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw")}{icona(p["icona"])}</span>
+  <span class="card-pers-testo"><b>{p['nome']}</b><span>{p['breve']}</span><em>Scopri e personalizza →</em></span>
+</a></li>"""
+
+
+def personalizzazioni_griglia():
+    return f'<ul class="griglia-pers">{"".join(card_pers(p) for p in PERSONALIZZAZIONI)}</ul>'
+
+
+def quattro_categorie():
+    cats = [next(c for c in CATEGORIE if c["slug"] == s) for s in CATEGORIE_HOME]
+    voci = "".join(f'<li><a href="{c["slug"]}.html">{img(c["foto"], "", "(min-width: 900px) 25vw, 50vw")}<span>{c["nome"]}</span></a></li>' for c in cats)
+    return f'<ul class="quattro">{voci}</ul>'
+
+
 def home():
-    principali = CATEGORIE[:8]
-    gm, ri = SU_MISURA["grembiuli"], SU_MISURA["ricamo"]
     corpo = f"""
-<section class="hero">
-  <div class="wrap hero-in">
-    <div class="hero-testo">
-      <p class="script hero-script">{CARTELLINO['titolo']}</p>
-      <h1>Non solo una merceria a&nbsp;Brescia</h1>
-      <p class="lead">Bottoni, tessuti e filati, e un laboratorio di sartoria dove cuciamo e ricamiamo corredini, grembiuli e accessori su misura.</p>
-      <div class="azioni">
-        <a class="btn" href="prodotti.html">Scopri i prodotti</a>
-        <a class="btn btn-ghost" href="su-misura.html">Personalizza un capo</a>
-      </div>
-    </div>
-    <div class="hero-foto">
-      <div class="polaroid p1">{img("image00012.jpg", "Pile di cotonine a fiori", "(min-width: 900px) 30vw, 60vw", eager=True)}</div>
-      <div class="polaroid p2">{img("_1040309.jpg", "Macchina da ricamo che ricama il nome Edoardo", "(min-width: 900px) 22vw, 45vw", eager=True)}</div>
-      <div class="polaroid p3">{img("IMG_8658.jpg", "Fili, aghi e metro da sarta", "(min-width: 900px) 20vw, 40vw")}</div>
-    </div>
+{hero_html()}
+{scegli_tu_html()}
+<section class="sezione-pers">
+  <div class="wrap">
+    <header class="sez-testa">
+      <p class="occhiello">Le nostre personalizzazioni</p>
+      <h2>Fatto a mano, con il tuo nome</h2>
+      {DIVISORE}
+    </header>
+    {personalizzazioni_griglia()}
+    <div class="azioni centro-flex"><a class="btn btn-wa" href="{wa("Ciao! Vorrei personalizzare un capo.")}" target="_blank" rel="noopener">{ICONA_WA}Raccontaci la tua idea</a></div>
   </div>
 </section>
-{valori_html()}
 <section class="sezione wrap">
   <header class="sez-testa">
     <p class="occhiello">In negozio</p>
-    <h2>Cosa trovi alla Bottoneria</h2>
+    <h2>La merceria</h2>
     {DIVISORE}
   </header>
-  {griglia_categorie(principali)}
-  <p class="centro"><a class="link-freccia" href="prodotti.html">Anche libri e schemi, novità, buoni regalo e outlet →</a></p>
+  {quattro_categorie()}
+  <p class="centro"><a class="link-freccia" href="prodotti.html">Tutti i prodotti: neonato, asilo, casa, buoni regalo e altro →</a></p>
 </section>
-<section class="feature">
-  <div class="wrap feature-in">
-    <div class="feature-foto cucito">{img(gm["foto"], "Cartamodello di un grembiule su tessuto a pois con forbici e metro", "(min-width: 900px) 45vw, 100vw")}</div>
-    <div class="feature-testo">
-      <p class="occhiello">Su misura</p>
-      <h2>{gm['titolo']}</h2>
-      {"".join(f"<p>{t}</p>" for t in gm["testo"])}
-      <ol class="passi">{"".join(f"<li><b>{a}</b><span>{b}</span></li>" for a, b in gm["passi"])}</ol>
-      <a class="btn btn-wa" href="{wa("Ciao! Vorrei informazioni sui grembiuli su misura.")}" target="_blank" rel="noopener">{ICONA_WA}Chiedi lo schema delle misure</a>
-    </div>
-  </div>
-</section>
-<section class="feature feature-inv">
-  <div class="wrap feature-in">
-    <div class="feature-foto cucito">{img("image00005.jpg", "Asciugamani con il nome Margherita ricamato", "(min-width: 900px) 45vw, 100vw")}</div>
-    <div class="feature-testo">
-      <p class="occhiello">Ricamo</p>
-      <h2>{ri['titolo']}</h2>
-      {"".join(f"<p>{t}</p>" for t in ri["testo"])}
-      <div class="azioni"><a class="btn" href="su-misura.html">Scopri le personalizzazioni</a></div>
-    </div>
-  </div>
-</section>
-<section class="motto-banda">
-  <div class="wrap">{cartellino_html()}</div>
-</section>
-{visita_html()}
 """
-    pagina("index.html", "", "La Bottoneria, merceria e sartoria in via Cremona a Brescia: bottoni, tessuti, filati, corredini per neonati, grembiuli su misura e ricamo personalizzato.", corpo, extra_head=jsonld())
+    pagina("index.html", "", "La Bottoneria, merceria a Brescia da 50 anni: nomi ricamati, grembiulini su misura, set asilo, set nascita e regali per le maestre. Scegli tutto tu.", corpo, extra_head=jsonld())
 
 
 def prodotti():
@@ -404,51 +455,67 @@ def categoria(c):
     pagina(f"{c['slug']}.html", c["nome"], f"{c['nome']} alla Bottoneria di Brescia: {c['intro']}", corpo, attivo="prodotti.html")
 
 
-def su_misura():
-    gm, ri = SU_MISURA["grembiuli"], SU_MISURA["ricamo"]
-    sets = "".join(f"""<article class="set-card">
-  <div class="cucito">{img(s["foto"], s["titolo"], "(min-width: 800px) 45vw, 100vw")}</div>
-  <h3>{s['titolo']}</h3><p>{s['testo']}</p>
-  <a class="link-freccia" href="{wa(f"Ciao! Vorrei informazioni sul {s['titolo'].lower()}.")}" target="_blank" rel="noopener">Chiedi informazioni →</a>
-</article>""" for s in SU_MISURA["set"])
-    ric = next(c for c in CATEGORIE if c["slug"] == "ricamo")
+def personalizzazioni():
     corpo = f"""
 <section class="testa-pagina wrap">
-  <p class="occhiello">Su misura e ricamo</p>
-  <h1>Fatto per te, con il tuo nome</h1>
-  <p class="lead">Nel nostro laboratorio cuciamo su misura e ricamiamo nomi, iniziali e disegni su quasi ogni capo e tessuto.</p>
+  <p class="occhiello">Personalizzazioni</p>
+  <h1>{SCEGLI_TU['titolo']}</h1>
+  <p class="lead">{SCEGLI_TU['testo']}</p>
   {DIVISORE}
 </section>
-<section class="feature">
-  <div class="wrap feature-in">
-    <div class="feature-foto cucito">{img(ri["foto"], "Macchina da ricamo al lavoro", "(min-width: 900px) 45vw, 100vw", eager=True)}</div>
-    <div class="feature-testo">
-      <p class="occhiello">Ricamo personalizzato</p>
-      <h2>{ri['titolo']}</h2>
-      {"".join(f"<p>{t}</p>" for t in ri["testo"])}
-      <p class="tag-lista">{" ".join(f"<span>{s}</span>" for s in ric["sotto"])}</p>
-      <a class="btn btn-wa" href="{wa("Ciao! Vorrei personalizzare un capo con un ricamo.")}" target="_blank" rel="noopener">{ICONA_WA}Chiedi informazioni</a>
-    </div>
+<section class="wrap sezione-stretta">{personalizzazioni_griglia()}</section>
+{scegli_tu_html().replace('<h2>' + SCEGLI_TU['titolo'] + '</h2>', '<h2>Cosa puoi scegliere</h2>').replace('<p class="lead">' + SCEGLI_TU['testo'] + '</p>', '')}
+<section class="wrap sezione">{come_ordinare_html()}</section>
+"""
+    pagina("personalizzazioni.html", "Personalizzazioni", "Nomi ricamati, grembiulini su misura, set asilo, set nascita e regali per le maestre: alla Bottoneria di Brescia scegli tutto tu.", corpo, attivo="personalizzazioni.html")
+
+
+def pagina_pers(p):
+    scegli = "".join(f"<li>{s}</li>" for s in p["scegli"])
+    contiene = ""
+    if p["contiene"]:
+        voci = "".join(
+            f'<li><span>{esc(c)}</span><a href="{wa(f"Ciao! Per il {p["nome"].lower()} vorrei informazioni su: {c}")}" target="_blank" rel="noopener" aria-label="Chiedi informazioni su {esc(c)} via WhatsApp">Chiedi {ICONA_WA}</a></li>'
+            for c in p["contiene"])
+        contiene = f'<section class="wrap sezione-stretta"><h2 class="titolo-sez">{p["contiene_titolo"]}</h2><ul class="sottocat">{voci}</ul></section>'
+    gal = ""
+    if p["galleria"]:
+        gal = ('<section class="wrap sezione-stretta"><h2 class="titolo-sez">Dal nostro laboratorio</h2><ul class="galleria">'
+               + "".join(f'<li>{img(g, "", "(min-width: 900px) 25vw, 50vw")}</li>' for g in p["galleria"])
+               + "</ul></section>")
+    altre = "".join(card_pers(x) for x in PERSONALIZZAZIONI if x["slug"] != p["slug"])
+    passi = ""
+    if p["slug"] == "grembiulini":
+        passi = """<ol class="passi"><li><b>Scrivici</b><span>Contattaci su WhatsApp o vieni in negozio.</span></li>
+<li><b>Prendi le misure</b><span>Ti inviamo un semplice schema: ci bastano 3 misure.</span></li>
+<li><b>Scegli la fantasia</b><span>Tessuto, colletto e personalizzazione: decidi tu.</span></li></ol>"""
+    corpo = f"""
+<nav class="briciole wrap" aria-label="Percorso"><a href="index.html">Home</a> / <a href="personalizzazioni.html">Personalizzazioni</a> / <span>{p['nome']}</span></nav>
+<section class="cat-testa wrap">
+  <div class="cat-testo">
+    <p class="occhiello">Su misura per te</p>
+    <h1>{p['nome']}</h1>
+    <p class="lead">{p['intro']}</p>
+    {passi}
+    <a class="btn btn-wa" href="{wa(f"Ciao! Vorrei informazioni su: {p['nome']}.")}" target="_blank" rel="noopener">{ICONA_WA}Chiedi informazioni</a>
+  </div>
+  <div class="cat-foto cucito">{img(p["foto"], p["nome"], "(min-width: 900px) 45vw, 100vw", eager=True)}</div>
+</section>
+<section class="wrap sezione-stretta">
+  <div class="scegli-box">
+    <h2>Scegli tu</h2>
+    <ul class="spunte">{scegli}</ul>
   </div>
 </section>
-<section class="feature feature-inv" id="grembiuli">
-  <div class="wrap feature-in">
-    <div class="feature-foto cucito">{img(gm["foto"], "Cartamodello di grembiule", "(min-width: 900px) 45vw, 100vw")}</div>
-    <div class="feature-testo">
-      <p class="occhiello">Asilo e scuola</p>
-      <h2>{gm['titolo']}</h2>
-      {"".join(f"<p>{t}</p>" for t in gm["testo"])}
-      <ol class="passi">{"".join(f"<li><b>{a}</b><span>{b}</span></li>" for a, b in gm["passi"])}</ol>
-      <a class="btn btn-wa" href="{wa("Ciao! Vorrei informazioni sui grembiuli su misura.")}" target="_blank" rel="noopener">{ICONA_WA}Chiedi lo schema delle misure</a>
-    </div>
-  </div>
-</section>
+{contiene}
+{gal}
+<section class="wrap sezione">{come_ordinare_html()}</section>
 <section class="wrap sezione">
-  <header class="sez-testa"><p class="occhiello">Da regalare</p><h2>I nostri set coordinati</h2>{DIVISORE}</header>
-  <div class="set-griglia">{sets}</div>
+  <h2 class="titolo-sez">Altre personalizzazioni</h2>
+  <ul class="griglia-pers griglia-pers-4">{altre}</ul>
 </section>
 """
-    pagina("su-misura.html", "Su misura e ricamo", "Ricamo personalizzato, grembiuli asilo e scuola su misura, set nascita e set asilo realizzati a mano dalla Bottoneria di Brescia.", corpo, attivo="su-misura.html")
+    pagina(f"{p['slug']}.html", p["nome"], f"{p['nome']} alla Bottoneria di Brescia: {p['breve']}", corpo, attivo="personalizzazioni.html")
 
 
 def chi_siamo():
@@ -539,7 +606,9 @@ def main():
     prodotti()
     for c in CATEGORIE:
         categoria(c)
-    su_misura()
+    personalizzazioni()
+    for p in PERSONALIZZAZIONI:
+        pagina_pers(p)
     chi_siamo()
     contatti()
     pagina_404()
