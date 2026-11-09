@@ -570,3 +570,4 @@ address { font-style: normal; }
 @media (max-width: 600px) { .car-pista { grid-auto-columns: 72%; gap: 14px; } .car-galleria .car-pista { grid-auto-columns: 62%; } }
 .car-frecce[hidden] { display: none; }
 .sez-testa .lead { margin: 22px auto 0; }
+.card-pers-testo { border-top: 2px dashed var(--bordo); }
