@@ -74,15 +74,13 @@ address { font-style: normal; }
 .btn {
   display: inline-flex; align-items: center; gap: .5em; justify-content: center;
   font: 700 .95rem/1 var(--sans); letter-spacing: .02em;
-  padding: 15px 24px; border-radius: 999px; border: 2px solid var(--verde);
+  padding: 15px 24px; border-radius: 5px; border: 2px solid var(--verde);
   background: var(--verde); color: #fff; text-decoration: none; cursor: pointer;
   transition: background .2s, color .2s, transform .2s, border-color .2s;
 }
 .btn:hover { background: var(--verde-scuro); border-color: var(--verde-scuro); color: #fff; transform: translateY(-1px); }
 .btn-ghost { background: transparent; color: var(--verde); }
 .btn-ghost:hover { background: var(--verde); color: #fff; }
-.btn-wa { background: var(--wa); border-color: var(--wa); }
-.btn-wa:hover { background: #17703c; border-color: #17703c; }
 .btn-small { padding: 10px 16px; font-size: .88rem; }
 .azioni { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
 .link-freccia { font-weight: 700; text-decoration: none; }
@@ -110,7 +108,7 @@ address { font-style: normal; }
 .marchio small { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--tenue); }
 .menu { margin-left: auto; display: flex; align-items: center; gap: 20px; }
 .menu ul { list-style: none; display: flex; gap: 6px; margin: 0; padding: 0; }
-.menu ul a { display: block; padding: 8px 12px; border-radius: 999px; text-decoration: none; color: var(--testo); font-weight: 600; font-size: .97rem; }
+.menu ul a { display: block; padding: 8px 12px; border-radius: 5px; text-decoration: none; color: var(--testo); font-weight: 700; font-size: .85rem; text-transform: uppercase; letter-spacing: .08em; }
 .menu ul a:hover { background: var(--verde-chiaro); color: var(--verde-scuro); }
 .menu ul a[aria-current] { color: var(--verde); background: var(--verde-chiaro); }
 .menu-btn { display: none; margin-left: auto; background: none; border: 0; padding: 12px; cursor: pointer; }
@@ -133,7 +131,7 @@ address { font-style: normal; }
   }
   .menu.aperto { display: flex; }
   .menu ul { flex-direction: column; }
-  .menu ul a { padding: 12px 14px; font-size: 1.1rem; border-radius: 10px; }
+  .menu ul a { padding: 12px 14px; font-size: 1rem; border-radius: 5px; }
   .menu .btn { align-self: flex-start; }
 }
 
@@ -188,7 +186,7 @@ address { font-style: normal; }
 /* ---------- griglia categorie ---------- */
 .griglia-cat { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
 .card-cat {
-  display: block; text-decoration: none; color: inherit; background: var(--carta); border-radius: var(--raggio);
+  display: block; text-decoration: none; color: inherit; background: var(--carta); border-radius: 5px;
   overflow: hidden; box-shadow: var(--ombra); transition: transform .25s, box-shadow .25s; height: 100%;
 }
 .card-cat:hover { transform: translateY(-4px); box-shadow: 0 2px 4px rgba(0, 0, 0, .06), 0 16px 36px rgba(42, 42, 37, .14); color: inherit; }
@@ -277,9 +275,9 @@ address { font-style: normal; }
 .sottocat li span { font-weight: 600; }
 .sottocat a {
   display: inline-flex; align-items: center; gap: 6px; font-size: .85rem; font-weight: 700; text-decoration: none;
-  color: var(--wa); padding: 6px 10px; border-radius: 999px; background: #e6f3ea; white-space: nowrap;
+  color: var(--verde); padding: 6px 10px; border-radius: 5px; background: var(--verde-chiaro); white-space: nowrap;
 }
-.sottocat a:hover { background: var(--wa); color: #fff; }
+.sottocat a:hover { background: var(--verde); color: #fff; }
 .galleria { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
 .galleria li { aspect-ratio: 1; border-radius: 12px; overflow: hidden; box-shadow: var(--ombra); }
 .galleria img { width: 100%; height: 100%; object-fit: cover; }
@@ -407,7 +405,7 @@ address { font-style: normal; }
 .scelte { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; counter-reset: s; }
 .scelte li { text-align: center; padding: 8px 12px; position: relative; counter-increment: s; }
 .scelte li + li::before { /* filo tratteggiato tra i passi */
-  content: ""; position: absolute; top: 44px; left: calc(-50% + 56px); width: calc(100% - 112px + 24px);
+  content: ""; position: absolute; top: 52px; left: calc(-50% + 34px); width: calc(100% - 92px);
   border-top: 2px dashed var(--bordo);
 }
 .scelte .icona {
@@ -432,12 +430,13 @@ address { font-style: normal; }
 .griglia-pers-4 > li, .griglia-pers-4 > li:nth-child(n) { grid-column: auto; }
 .card-pers {
   display: flex; flex-direction: column; height: 100%; text-decoration: none; color: inherit; background: var(--lino);
-  border-radius: var(--raggio); overflow: hidden; box-shadow: var(--ombra); transition: transform .25s, box-shadow .25s;
+  border-radius: 5px; overflow: hidden; box-shadow: var(--ombra); transition: transform .25s, box-shadow .25s;
 }
 .card-pers:hover { transform: translateY(-4px); color: inherit; box-shadow: 0 2px 4px rgba(0, 0, 0, .06), 0 16px 36px rgba(42, 42, 37, .14); }
 .card-pers-foto { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; }
 .griglia-pers > li:nth-child(4) .card-pers-foto, .griglia-pers > li:nth-child(5) .card-pers-foto { aspect-ratio: 16 / 9; }
 .griglia-pers-4 .card-pers-foto, .griglia-pers-4 > li:nth-child(n) .card-pers-foto { aspect-ratio: 4 / 3; }
+.card-pers-img { position: absolute; inset: 0; overflow: hidden; border-radius: 5px 5px 0 0; }
 .card-pers-foto img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
 .card-pers:hover .card-pers-foto img { transform: scale(1.05); }
 .card-pers-foto .icona {
@@ -445,12 +444,13 @@ address { font-style: normal; }
   color: var(--verde); display: grid; place-items: center; box-shadow: var(--ombra); z-index: 1;
 }
 .card-pers-foto { overflow: visible; }
-.card-pers-foto img { border-radius: var(--raggio) var(--raggio) 0 0; }
 .card-pers-foto .icona svg { width: 30px; height: 30px; }
 .card-pers-testo { display: flex; flex-direction: column; gap: 6px; padding: 38px 20px 22px; flex: 1; }
 .card-pers-testo b { font-family: var(--serif); font-weight: 600; font-size: 1.35rem; color: var(--verde-scuro); line-height: 1.2; }
 .card-pers-testo > span { color: var(--tenue); font-size: .97rem; }
-.card-pers-testo em { font-style: normal; font-weight: 700; color: var(--filo); margin-top: auto; padding-top: 8px; font-size: .95rem; }
+.card-pers-testo .btn { align-self: flex-end; margin-top: auto; }
+.card-pers-testo > span.btn { color: #fff; font-size: .88rem; }
+.card-pers:hover .card-pers-testo .btn { background: var(--verde-scuro); border-color: var(--verde-scuro); }
 .sezione-pers .azioni { margin-top: 40px; }
 @media (max-width: 1000px) {
   .griglia-pers, .griglia-pers-4 { grid-template-columns: 1fr 1fr; }
@@ -461,13 +461,13 @@ address { font-style: normal; }
 
 /* ================= QUATTRO CATEGORIE ================= */
 .quattro { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
-.quattro a { position: relative; display: block; aspect-ratio: 1; overflow: hidden; border-radius: 6px; box-shadow: var(--ombra); }
+.quattro a { position: relative; display: block; aspect-ratio: 1; overflow: hidden; border-radius: 5px; box-shadow: var(--ombra); }
 .quattro img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
 .quattro a:hover img { transform: scale(1.06); }
 .quattro span {
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); white-space: nowrap;
-  background: rgba(255, 255, 255, .9); color: var(--verde-scuro); padding: 16px 30px; border-radius: 8px;
-  font-size: clamp(.95rem, 1.4vw, 1.15rem); letter-spacing: .06em; text-transform: uppercase; font-weight: 600;
+  background: rgba(255, 255, 255, .9); color: var(--verde-scuro); padding: 16px 30px; border-radius: 5px;
+  font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 700;
   box-shadow: 0 4px 14px rgba(0, 0, 0, .12); transition: background .25s, color .25s;
 }
 .quattro a:hover span { background: var(--verde); color: #fff; }

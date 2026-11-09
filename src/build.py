@@ -358,8 +358,8 @@ def scegli_tu_html():
 
 def card_pers(p):
     return f"""<li><a class="card-pers" href="{p['slug']}.html">
-  <span class="card-pers-foto">{img(p["foto"], "", "(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw")}{icona(p["icona"])}</span>
-  <span class="card-pers-testo"><b>{p['nome']}</b><span>{p['breve']}</span><em>Scopri e personalizza →</em></span>
+  <span class="card-pers-foto"><span class="card-pers-img">{img(p["foto"], "", "(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw")}</span>{icona(p["icona"])}</span>
+  <span class="card-pers-testo"><b>{p['nome']}</b><span>{p['breve']}</span><span class="btn btn-small">Scopri e personalizza →</span></span>
 </a></li>"""
 
 

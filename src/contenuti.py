@@ -160,7 +160,7 @@ HERO = [
 # Il "punto focale": la personalizzazione, scegli tutto tu
 SCEGLI_TU = {
     "occhiello": "Personalizzazione",
-    "titolo": "Qui scegli tutto tu",
+    "titolo": "Fai la tua scelta",
     "testo": ("Ogni capo nasce su misura nel nostro laboratorio: tu scegli, noi cuciamo e ricamiamo. "
               "Nomi, grembiulini, set per l'asilo e per la nascita, regali per le maestre: "
               "nulla è uguale a un altro, perché è fatto per te."),
@@ -209,7 +209,7 @@ PERSONALIZZAZIONI = [
     },
     {
         "slug": "set-nascita", "nome": "Set nascita", "icona": "gift-2",
-        "foto": "bottoneria-7.jpg", "galleria": ["IMG_8666.jpg", "image00033.jpg", "casa.jpg", "IMG_8683.jpg"],
+        "foto": "la-bottoneria-brescia-10.jpg", "galleria": ["bottoneria-7.jpg", "IMG_8666.jpg", "casa.jpg", "IMG_8683.jpg"],
         "breve": "Il corredo per il nuovo arrivato: lavette, bavagli, lenzuolini e fiocco nascita.",
         "intro": ("Per accogliere il nuovo arrivato prepariamo un corredo coordinato, cucito in puro cotone e "
                   "personalizzato con il nome o le iniziali. Un regalo unico anche per chi diventa nonno, zia o amica."),
