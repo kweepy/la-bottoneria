@@ -20,8 +20,8 @@ NEGOZIO = {
     "email": "info@labottoneria.it",
     "piva": "03212540177",
     "rea": "BS-343978",
-    "instagram": "",   # es. "https://www.instagram.com/labottoneria" (vuoto = non mostrato)
-    "facebook": "",
+    "instagram": "https://www.instagram.com/labottoneria_brescia/",   # vuoto = non mostrato
+    "facebook": "https://www.facebook.com/labottoneria/",
     "sito": "",        # es. "https://www.labottoneria.it" (serve per i link condivisi)
 }
 
@@ -246,6 +246,8 @@ CATEGORIE_HOME = ["buste-e-sacche", "tessuti", "novita", "merceria"]
 
 CHI_SIAMO = {
     "foto": "_1040295.jpg",
+    # foto della galleria: immagini/chi-siamo/la-bottoneria-merceria-a-brescia-1.jpg ... -25.jpg
+    "galleria": [f"chi-siamo/la-bottoneria-merceria-a-brescia-{n}.jpg" for n in range(1, 26)],
     "testo": [
         "La Bottoneria è una merceria nel cuore di Brescia, in via Cremona: un negozio dove trovare bottoni, filati, tessuti e tutto il necessario per cucire, insieme a un laboratorio di sartoria dove nascono le nostre creazioni.",
         "Realizziamo <strong>pezzi unici</strong>, creati e confezionati artigianalmente, selezionando con cura i materiali e utilizzando tecniche di lavoro che rappresentano il cuore e l'impegno di chi li ha prodotti.",

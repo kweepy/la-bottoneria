@@ -142,3 +142,71 @@ document.querySelectorAll("[data-carosello]").forEach(function (box) {
   window.addEventListener("resize", aggiorna);
   aggiorna();
 });
+
+// lightbox delle gallerie: clic sulla foto, frecce o dito per scorrere
+(function () {
+  var link = document.querySelectorAll("a[data-lb]");
+  if (!link.length) return;
+  var box = document.createElement("div");
+  box.className = "lightbox";
+  box.setAttribute("role", "dialog");
+  box.setAttribute("aria-modal", "true");
+  box.setAttribute("aria-label", "Foto ingrandita");
+  box.innerHTML =
+    '<button type="button" class="lb-chiudi" aria-label="Chiudi"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
+    '<button type="button" class="lb-prec" aria-label="Foto precedente"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>' +
+    '<img alt="">' +
+    '<button type="button" class="lb-succ" aria-label="Foto successiva"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>' +
+    '<p class="lb-conta" aria-live="polite"></p>';
+  document.body.appendChild(box);
+  var foto = box.querySelector("img");
+  var conta = box.querySelector(".lb-conta");
+  var gruppo = [], i = 0, origine = null;
+  function mostra(n) {
+    i = (n + gruppo.length) % gruppo.length;
+    foto.src = gruppo[i].href;
+    conta.textContent = (i + 1) + " / " + gruppo.length;
+    var pre = new Image(); pre.src = gruppo[(i + 1) % gruppo.length].href; // precarica la successiva
+  }
+  function apri(a) {
+    var contenitore = a.closest("[data-carosello]") || document;
+    gruppo = Array.prototype.slice.call(contenitore.querySelectorAll("a[data-lb]"));
+    origine = a;
+    box.classList.add("aperto");
+    document.body.classList.add("lb-blocco");
+    mostra(gruppo.indexOf(a));
+    box.querySelector(".lb-chiudi").focus();
+  }
+  function chiudi() {
+    box.classList.remove("aperto");
+    document.body.classList.remove("lb-blocco");
+    foto.removeAttribute("src");
+    if (origine) origine.focus();
+  }
+  link.forEach(function (a) {
+    a.addEventListener("click", function (e) { e.preventDefault(); apri(a); });
+  });
+  box.querySelector(".lb-chiudi").addEventListener("click", chiudi);
+  box.querySelector(".lb-prec").addEventListener("click", function () { mostra(i - 1); });
+  box.querySelector(".lb-succ").addEventListener("click", function () { mostra(i + 1); });
+  box.addEventListener("click", function (e) { if (e.target === box) chiudi(); });
+  document.addEventListener("keydown", function (e) {
+    if (!box.classList.contains("aperto")) return;
+    if (e.key === "Escape") chiudi();
+    else if (e.key === "ArrowLeft") mostra(i - 1);
+    else if (e.key === "ArrowRight") mostra(i + 1);
+    else if (e.key === "Tab") { // tieni il focus dentro il lightbox
+      var b = box.querySelectorAll("button"), primo = b[0], ultimo = b[b.length - 1];
+      if (e.shiftKey && document.activeElement === primo) { e.preventDefault(); ultimo.focus(); }
+      else if (!e.shiftKey && document.activeElement === ultimo) { e.preventDefault(); primo.focus(); }
+    }
+  });
+  var x0 = null;
+  box.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  box.addEventListener("touchend", function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) mostra(dx < 0 ? i + 1 : i - 1);
+    x0 = null;
+  });
+})();

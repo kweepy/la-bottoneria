@@ -29,7 +29,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "src"
 OUT = ROOT / "docs"
 FOTO_DIR = ROOT / "immagini"
-LARGHEZZE = (800, 1600)
+LARGHEZZE = (800, 1400)
 
 esc = html.escape
 
@@ -80,6 +80,8 @@ def wa(testo="Ciao! Vorrei qualche informazione."):
 
 ICONA_WA = ('<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.4 5 5.1-1.3A9.9 9.9 0 1 0 12.04 2Zm0 18.1a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3a8.2 8.2 0 1 1 6.9 3.8Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.4-.2Z"/></svg>')
 
+ICONA_IG = ('<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17" cy="7" r=".6" fill="currentColor"/></g></svg>')
+ICONA_FB = ('<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 21v-7.6h2.55l.38-2.96H13.5V8.55c0-.86.24-1.44 1.47-1.44h1.57V4.46c-.27-.04-1.2-.12-2.29-.12-2.27 0-3.82 1.38-3.82 3.93v2.17H7.87v2.96h2.56V21h3.07Z"/></svg>')
 ICONA_TEL = ('<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M6.6 3.5h-2A1.6 1.6 0 0 0 3 5.2 15.8 15.8 0 0 0 18.8 21a1.6 1.6 0 0 0 1.7-1.6v-2a1.2 1.2 0 0 0-.9-1.2l-3.2-.9a1.2 1.2 0 0 0-1.2.3l-1.4 1.4a12 12 0 0 1-5-5l1.4-1.4a1.2 1.2 0 0 0 .3-1.2l-.9-3.2a1.2 1.2 0 0 0-1.2-.9Z"/></svg>')
 ICONA_MAIL = ('<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></g></svg>')
 ICONA_POS = ('<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></g></svg>')
@@ -147,8 +149,8 @@ def pagina(file, titolo, descrizione, corpo, attivo=None, extra_head=""):
         f'<li><a href="{h}"{" aria-current=page" if h == attivo else ""}>{t}</a></li>' for h, t in NAV)
     titolo_completo = f"{titolo} · {NEGOZIO['nome']}" if titolo else f"{NEGOZIO['nome']} · Merceria e sartoria a Brescia"
     social = "".join(
-        f'<a href="{esc(NEGOZIO[k])}" rel="noopener">{n}</a>'
-        for k, n in (("instagram", "Instagram"), ("facebook", "Facebook")) if NEGOZIO[k])
+        f'<a href="{esc(NEGOZIO[k])}" target="_blank" rel="noopener" aria-label="{n}">{ic}</a>'
+        for k, n, ic in (("instagram", "Instagram", ICONA_IG), ("facebook", "Facebook", ICONA_FB)) if NEGOZIO[k])
     cat_links = "".join(f'<li><a href="{c["slug"]}.html">{c["nome"]}</a></li>' for c in CATEGORIE[:8])
     canon = f'<link rel="canonical" href="{NEGOZIO["sito"].rstrip("/")}/{"" if file == "index.html" else file}">' if NEGOZIO["sito"] else ""
     doc = f"""<!doctype html>
@@ -197,6 +199,7 @@ def pagina(file, titolo, descrizione, corpo, attivo=None, extra_head=""):
       <img src="logo.png" width="300" height="300" alt="{NEGOZIO['nome']} merceria" loading="lazy">
       <p class="script">{CARTELLINO['titolo']}</p>
       <p>Creati e confezionati artigianalmente nella nostra sartoria.</p>
+      <p class="social">{social}</p>
     </div>
     <div class="piede-col">
       <h2>Prodotti</h2>
@@ -206,7 +209,6 @@ def pagina(file, titolo, descrizione, corpo, attivo=None, extra_head=""):
       <h2>Vieni a trovarci</h2>
       <address>{indirizzo_link()}</address>
       {contatti_icone("contatti-icone contatti-piede")}
-      <p class="social">{social}</p>
     </div>
     <div class="piede-col">
       <h2>Orari</h2>
@@ -326,11 +328,12 @@ def carosello(titolo, voci, cls=""):
 </section>"""
 
 
-def galleria_carosello(foto):
+def galleria_carosello(foto, titolo="Dal nostro laboratorio"):
     if not foto:
         return ""
-    return carosello("Dal nostro laboratorio",
-                     [f'<li class="car-foto">{img(g, "", "(min-width: 900px) 25vw, 50vw", grande=False)}</li>' for g in foto],
+    return carosello(titolo,
+                     [f'<li class="car-foto"><a href="{prepara_foto(g)["varianti"][-1][0]}" data-lb aria-label="Ingrandisci la foto">'
+                      f'{img(g, "", "(min-width: 900px) 25vw, 50vw")}</a></li>' for g in foto],
                      "car-galleria")
 
 
@@ -558,7 +561,7 @@ def chi_siamo():
     corpo = f"""
 <section class="testa-pagina wrap">
   <p class="occhiello">Chi siamo</p>
-  <h1>La Bottoneria, merceria di Brescia</h1>
+  <h1>La Bottoneria Merceria a Brescia</h1>
   {DIVISORE}
 </section>
 <section class="feature">
@@ -567,14 +570,7 @@ def chi_siamo():
     <div class="feature-testo prosa">{"".join(f"<p>{t}</p>" for t in CHI_SIAMO["testo"])}</div>
   </div>
 </section>
-<section class="wrap sezione-stretta">
-  <ul class="galleria">
-    <li>{img("_1040357.jpg", "Parete di bottoni colorati", "(min-width: 900px) 25vw, 50vw")}</li>
-    <li>{img("image00015.jpg", "Nastri con il marchio La Bottoneria Merceria Brescia", "(min-width: 900px) 25vw, 50vw")}</li>
-    <li>{img("merceria.jpg", "Scaffale di gomitoli", "(min-width: 900px) 25vw, 50vw")}</li>
-    <li>{img("bottoneria-9.jpg", "L'interno del negozio", "(min-width: 900px) 25vw, 50vw")}</li>
-  </ul>
-</section>
+{galleria_carosello(CHI_SIAMO["galleria"], "La nostra merceria")}
 <section class="motto-banda"><div class="wrap">{cartellino_html()}</div></section>
 {visita_html()}
 """
