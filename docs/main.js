@@ -128,8 +128,7 @@ document.querySelectorAll("[data-carosello]").forEach(function (box) {
     var li = pista.querySelector("li");
     if (!li) return pista.clientWidth;
     var gap = parseFloat(getComputedStyle(pista).columnGap) || 0;
-    var n = Math.max(1, Math.floor((pista.clientWidth + gap) / (li.offsetWidth + gap)));
-    return n * (li.offsetWidth + gap);
+    return li.offsetWidth + gap; // una foto alla volta
   }
   function aggiorna() {
     var max = pista.scrollWidth - pista.clientWidth - 2;
