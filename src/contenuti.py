@@ -22,7 +22,7 @@ NEGOZIO = {
     "rea": "BS-343978",
     "instagram": "https://www.instagram.com/labottoneria_brescia/",   # vuoto = non mostrato
     "facebook": "https://www.facebook.com/labottoneria/",
-    "sito": "",        # es. "https://www.labottoneria.it" (serve per i link condivisi)
+    "sito": "https://www.labottoneria.it",   # indirizzo definitivo del sito
 }
 
 # Orari: giorno -> lista di fasce "HH:MM-HH:MM" (lista vuota = chiuso)

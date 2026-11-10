@@ -144,6 +144,9 @@ NAV = [("personalizzazioni.html", "Personalizzazioni"), ("prodotti.html", "Prodo
        ("chi-siamo.html", "Chi siamo"), ("contatti.html", "Contatti")]
 
 
+PAGINE = []
+
+
 def pagina(file, titolo, descrizione, corpo, attivo=None, extra_head=""):
     nav = "".join(
         f'<li><a href="{h}"{" aria-current=page" if h == attivo else ""}>{t}</a></li>' for h, t in NAV)
@@ -226,6 +229,7 @@ def pagina(file, titolo, descrizione, corpo, attivo=None, extra_head=""):
 </html>
 """
     (OUT / file).write_text(doc, encoding="utf-8")
+    PAGINE.append(file)
     print("  ✓", file)
 
 
@@ -645,6 +649,21 @@ def main():
     chi_siamo()
     contatti()
     pagina_404()
+
+    # file per l'hosting (Aruba): pagina di errore, mappa del sito per i motori di ricerca
+    (OUT / ".htaccess").write_text(
+        "ErrorDocument 404 /404.html\n"
+        "<IfModule mod_expires.c>\n  ExpiresActive On\n"
+        "  ExpiresByType image/webp \"access plus 1 year\"\n"
+        "  ExpiresByType image/png \"access plus 1 month\"\n</IfModule>\n")
+    if NEGOZIO["sito"]:
+        base = NEGOZIO["sito"].rstrip("/")
+        urls = "".join(f"  <url><loc>{base}/{'' if f == 'index.html' else f}</loc></url>\n"
+                       for f in PAGINE if f != "404.html")
+        (OUT / "sitemap.xml").write_text(
+            '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+            + urls + "</urlset>\n", encoding="utf-8")
+        (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n")
 
     # rimuove le immagini non più usate
     usate = {p.split("/")[-1] for i in _cache.values() for p, _ in i["varianti"]}
