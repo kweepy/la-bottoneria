@@ -38,10 +38,10 @@ esc = html.escape
 _cache = {}
 
 
-def prepara_foto(nome):
-    """Converte una foto di immagini/ in WebP a 800 e 1600 px. Ritorna info."""
-    if nome in _cache:
-        return _cache[nome]
+def prepara_foto(nome, grande=True):
+    """Converte una foto di immagini/ in WebP a 800 px (e 1600 px se grande). Ritorna info."""
+    if (nome, grande) in _cache:
+        return _cache[(nome, grande)]
     src = FOTO_DIR / nome
     if not src.exists():
         sys.exit(f"Foto non trovata: immagini/{nome}")
@@ -49,7 +49,7 @@ def prepara_foto(nome):
     im = ImageOps.exif_transpose(Image.open(src)).convert("RGB")
     w, h = im.size
     varianti = []
-    for lw in LARGHEZZE:
+    for lw in (LARGHEZZE if grande else LARGHEZZE[:1]):
         tw = min(lw, w)
         if varianti and tw == varianti[-1][1]:
             break
@@ -59,12 +59,12 @@ def prepara_foto(nome):
             r.save(dest, "WEBP", quality=78, method=6)
         varianti.append((f"img/{dest.name}", tw))
     info = {"varianti": varianti, "w": w, "h": h}
-    _cache[nome] = info
+    _cache[(nome, grande)] = info
     return info
 
 
-def img(nome, alt, sizes="100vw", cls="", eager=False):
-    info = prepara_foto(nome)
+def img(nome, alt, sizes="100vw", cls="", eager=False, grande=True):
+    info = prepara_foto(nome, grande)
     srcset = ", ".join(f"{p} {w}w" for p, w in info["varianti"])
     small = info["varianti"][0][0]
     load = 'fetchpriority="high"' if eager else 'loading="lazy" decoding="async"'
@@ -330,7 +330,7 @@ def galleria_carosello(foto):
     if not foto:
         return ""
     return carosello("Dal nostro laboratorio",
-                     [f'<li class="car-foto">{img(g, "", "(min-width: 900px) 25vw, 50vw")}</li>' for g in foto],
+                     [f'<li class="car-foto">{img(g, "", "(min-width: 900px) 25vw, 50vw", grande=False)}</li>' for g in foto],
                      "car-galleria")
 
 
@@ -445,7 +445,7 @@ def home():
   <p class="centro"><a class="link-freccia" href="prodotti.html">Tutti i prodotti: neonato, asilo, casa, buoni regalo e altro →</a></p>
 </section>
 """
-    pagina("index.html", "", "La Bottoneria, merceria a Brescia da 50 anni: nomi ricamati, grembiulini su misura, set asilo, set nascita e regali per le maestre. Scegli tutto tu.", corpo, extra_head=jsonld())
+    pagina("index.html", "", "La Bottoneria, merceria a Brescia da 35 anni: nomi ricamati, grembiulini su misura, set asilo, set nascita e regali per le maestre. Scegli tutto tu.", corpo, extra_head=jsonld())
 
 
 def prodotti():
@@ -651,7 +651,7 @@ def main():
         if f.name not in usate:
             f.unlink()
     peso = sum(f.stat().st_size for f in OUT.rglob("*") if f.is_file()) / 1e6
-    print(f"Fatto: {len(_cache)} foto, sito in docs/ ({peso:.1f} MB)")
+    print(f"Fatto: {len({n for n, _ in _cache})} foto, sito in docs/ ({peso:.1f} MB)")
 
 
 if __name__ == "__main__":

@@ -52,7 +52,7 @@ CATEGORIE = [
     {
         "slug": "neonato", "nome": "Neonato",
         "foto": "IMG_8666.jpg",
-        "galleria": ["image00033.jpg", "bottoneria-7.jpg", "casa.jpg", "IMG_8683.jpg"],
+        "galleria": ["nascita-1.jpeg", "nascita-8.jpeg", "nascita-2.jpeg", "nascita-10g.jpeg", "nascita-7.jpeg", "nascita-3.jpeg", "nascita-9g.jpg", "nascita-4.jpeg", "nascita-5.jpeg", "nascita-6.jpeg", "borsa-cambio-3.jpeg", "borsa-cambio-2.jpeg", "borsa-cambio-1.jpeg", "image00033.jpg", "bottoneria-7.jpg", "casa.jpg", "IMG_8683.jpg"],
         "intro": "Il corredo per i primi mesi, cucito da noi in puro cotone e personalizzabile con il nome del bimbo.",
         "sotto": ["Accappatoi", "Asciugamani", "Bavagli", "Beauty case", "Borse",
                   "Buste e sacche", "Copertine", "Fasciatoio da passeggio",
@@ -63,7 +63,7 @@ CATEGORIE = [
     {
         "slug": "bambino", "nome": "Bimbo e bimba",
         "foto": "b05d42bb-13e7-4b55-81e9-1b95c1cc162b.jpg",
-        "galleria": ["bottoneria-6.jpg"],
+        "galleria": ["zainetto-10g.jpeg", "zainetto-7.jpeg", "zainetto-8.jpeg", "bottoneria-6.jpg"],
         "intro": "Abitini, pigiamini e costumini con le nostre fantasie, anche coordinati mamma e bimba.",
         "sotto": ["Abitini", "Accessori", "Completi mare", "Costumini",
                   "Gonne mamma e bimba", "Pigiamini", "T-shirt ricamate"],
@@ -71,7 +71,7 @@ CATEGORIE = [
     {
         "slug": "asilo", "nome": "Asilo",
         "foto": "image00025.jpg",
-        "galleria": ["grembiule.jpg", "set_asilo_zainetto_personalizzato.jpg", "zainetto_personalizzato.jpg", "pochette.jpg", "bottoneria-1.jpg", "image00042.jpg", "bottoneria-10.jpg"],
+        "galleria": ["grembiulino-5.jpeg", "grembiulino-1.jpeg", "grembiulino-2.jpeg", "grembiulino-8.jpeg", "grembiulino-9.jpeg", "grembiulino-11.jpeg", "zainetto-1.jpeg", "zainetto-7.jpeg", "zainetto-8.jpeg", "zainetto-3.jpeg", "zainetto-6.jpeg", "grembiulino-4.jpeg", "grembiulino-3.jpeg", "grembiulino-6.jpeg", "grembiulino-10.jpeg", "grembiulino-12g.jpeg", "grembiulino-7.jpeg", "zainetto-9.jpeg", "zainetto3.jpeg", "zainnetto-5.jpeg", "zainetto-10g.jpeg", "grembiule.jpg", "set_asilo_zainetto_personalizzato.jpg", "zainetto_personalizzato.jpg", "pochette.jpg", "bottoneria-1.jpg", "image00042.jpg", "bottoneria-10.jpg"],
         "intro": "Grembiuli, sacchette e bavaglie per la scuola, con il nome ricamato perché nulla vada perso.",
         "sotto": ["Accessori", "Bavaglie", "Grembiuli", "Sacchette", "Salviette",
                   "Pettorine", "Tovagliette", "Tovaglioli", "Zainetti", "Portabavaglia"],
@@ -79,7 +79,7 @@ CATEGORIE = [
     {
         "slug": "ricamo", "nome": "Ricamo",
         "foto": "image00005.jpg",
-        "galleria": ["_1040309.jpg", "pochette.jpg", "zainetto_personalizzato.jpg", "regalo-maestra-best-teacher.jpg", "bottoneria-3.jpg", "bottoneria-10.jpg"],
+        "galleria": ["grembiulino-4.jpeg", "zainetto-1.jpeg", "nascita-2.jpeg", "pochette-1g.jpeg", "tote-bag-1.jpeg", "borsa-cambio-3.jpeg", "grembiulino-10.jpeg", "nascita-4.jpeg", "porta-fedi.jpeg", "zainetto3.jpeg", "grembiulino-12g.jpeg", "nascita-8.jpeg", "_1040309.jpg", "pochette.jpg", "zainetto_personalizzato.jpg", "regalo-maestra-best-teacher.jpg", "bottoneria-3.jpg", "bottoneria-10.jpg"],
         "intro": "Nomi, iniziali e disegni ricamati a macchina su capi, teli e accessori: scegli tu colore e scritta.",
         "sotto": ["Asilo", "Bagno", "Buste e sacche", "Cucina", "Neonato", "Arredo", "Su misura"],
     },
@@ -102,14 +102,14 @@ CATEGORIE = [
     {
         "slug": "buste-e-sacche", "nome": "Pochette e sacche",
         "foto": "image00034.jpg",
-        "galleria": ["pochette.jpg", "regalo-maestra-best-teacher.jpg", "idee_regalo.jpg", "bottoneria-3.jpg"],
+        "galleria": ["pochette-1g.jpeg", "tote-bag-2.jpeg", "tote-bag-1.jpeg", "tote-bag-3.jpeg", "tasca-interna.jpeg", "borsa-cambio-3.jpeg", "borsa-cambio-2.jpeg", "borsa-cambio-1.jpeg", "pochette.jpg", "regalo-maestra-best-teacher.jpg", "idee_regalo.jpg", "bottoneria-3.jpg"],
         "intro": "Pochette, sacche e shopper in cotone e lino, ricamate e pronte da regalare.",
         "sotto": ["Buste", "Sacche", "Shopper"],
     },
     {
         "slug": "casa", "nome": "Casa e arredamento",
         "foto": "bottoneria-5.jpg",
-        "galleria": ["image00009.jpg", "casa.jpg"],
+        "galleria": ["porta-fedi.jpeg", "image00009.jpg", "casa.jpg"],
         "intro": "Cuscini, tessili per bagno e cucina, cesti e nappe per dare un tocco artigianale alla casa.",
         "sotto": ["Bagno", "Casa", "Cesterie", "Cucina"],
     },
@@ -122,8 +122,8 @@ CATEGORIE = [
     },
     {
         "slug": "novita", "nome": "Novità",
-        "foto": "bottoneria-9.jpg",
-        "galleria": [],
+        "foto": "novita-zainetto-adele.jpg",
+        "galleria": ["zainetto-1.jpeg", "tote-bag-2.jpeg", "grembiulino-5.jpeg", "nascita-8.jpeg", "pochette-1g.jpeg", "borsa-cambio-3.jpeg"],
         "intro": "Gli ultimi arrivi in negozio e le nuove creazioni della nostra sartoria.",
         "sotto": [],
     },
@@ -148,7 +148,7 @@ CATEGORIE = [
 # "riga" = frase piccola sopra, "titolo" = scritta grande, "sotto" = frase sotto
 HERO = [
     {"foto": "_1040357.jpg", "riga": "Benvenuti alla", "titolo": "La Bottoneria",
-     "sotto": "Merceria a Brescia da 50 anni",
+     "sotto": "Merceria a Brescia da 35 anni",
      "bottone": ("Scopri la nostra storia", "chi-siamo.html")},
     {"foto": "bottoneria-1.jpg", "riga": "Su misura per te", "titolo": "Set asilo",
      "sotto": "Sacca, bavaglia e grembiulino con il nome del tuo bambino",
@@ -177,7 +177,7 @@ SCEGLI_TU = {
 PERSONALIZZAZIONI = [
     {
         "slug": "nomi-ricamati", "nome": "Nomi ricamati", "icona": "abc",
-        "foto": "_1040309.jpg", "galleria": ["image00005.jpg", "pochette.jpg", "zainetto_personalizzato.jpg", "regalo-maestra-best-teacher.jpg", "bottoneria-10.jpg", "bottoneria-3.jpg", "image00033.jpg", "grembiule.jpg"],
+        "foto": "_1040309.jpg", "galleria": ["grembiulino-4.jpeg", "zainetto-1.jpeg", "nascita-2.jpeg", "pochette-1g.jpeg", "tote-bag-1.jpeg", "borsa-cambio-3.jpeg", "grembiulino-10.jpeg", "nascita-4.jpeg", "porta-fedi.jpeg", "zainetto3.jpeg", "grembiulino-12g.jpeg", "nascita-8.jpeg", "image00005.jpg", "pochette.jpg", "zainetto_personalizzato.jpg", "regalo-maestra-best-teacher.jpg", "bottoneria-10.jpg", "bottoneria-3.jpg", "image00033.jpg", "grembiule.jpg"],
         "breve": "Il nome, le iniziali o un disegno ricamati a macchina su quasi ogni capo e tessuto.",
         "intro": ("Realizziamo personalizzazioni su quasi tutti i tipi di capi e tessuti: asciugamani, "
                   "bavaglie, sacche, accappatoi, tovagliette. Scegli il colore e la scritta più adatti al tuo capo."),
@@ -188,7 +188,7 @@ PERSONALIZZAZIONI = [
     },
     {
         "slug": "grembiulini", "nome": "Grembiulini su misura", "icona": "uniform",
-        "foto": "image00025.jpg", "galleria": ["grembiule.jpg", "image00036.jpg", "bottoneria-1.jpg"],
+        "foto": "image00025.jpg", "galleria": ["grembiulino-5.jpeg", "grembiulino-1.jpeg", "grembiulino-2.jpeg", "grembiulino-8.jpeg", "grembiulino-9.jpeg", "grembiulino-11.jpeg", "grembiulino-4.jpeg", "grembiulino-3.jpeg", "grembiulino-6.jpeg", "grembiulino-10.jpeg", "grembiulino-12g.jpeg", "grembiulino-7.jpeg", "grembiule.jpg", "image00036.jpg", "bottoneria-1.jpg"],
         "breve": "Grembiuli in 100% cotone per scuola materna ed elementare, cuciti sulle misure del bambino.",
         "intro": ("Realizziamo grembiuli in <strong>100% cotone su misura</strong> per scuola materna ed elementare, "
                   "con le fantasie scelte da voi. Possibilità di personalizzazione con nome e ricamo a macchina "
@@ -199,7 +199,7 @@ PERSONALIZZAZIONI = [
     },
     {
         "slug": "set-asilo", "nome": "Set asilo", "icona": "rucksack",
-        "foto": "image00042.jpg", "galleria": ["set_asilo_zainetto_personalizzato.jpg", "zainetto_personalizzato.jpg", "pochette.jpg", "grembiule.jpg", "bottoneria-1.jpg", "image00025.jpg", "bottoneria-10.jpg"],
+        "foto": "image00042.jpg", "galleria": ["zainetto-1.jpeg", "zainetto-7.jpeg", "zainetto-8.jpeg", "zainetto-3.jpeg", "zainetto-6.jpeg", "zainetto-9.jpeg", "zainetto3.jpeg", "zainnetto-5.jpeg", "zainetto-10g.jpeg", "grembiulino-5.jpeg", "grembiulino-1.jpeg", "grembiulino-2.jpeg", "grembiulino-8.jpeg", "set_asilo_zainetto_personalizzato.jpg", "zainetto_personalizzato.jpg", "pochette.jpg", "grembiule.jpg", "bottoneria-1.jpg", "image00025.jpg", "bottoneria-10.jpg"],
         "breve": "Sacca, bavaglia, salvietta e tovaglietta coordinati, con il nome del bambino.",
         "intro": ("Il set per l'asilo lo componi tu: scegli i pezzi che servono, la fantasia e il nome da ricamare. "
                   "Tutto coordinato, tutto riconoscibile, così nulla va perso."),
@@ -210,7 +210,7 @@ PERSONALIZZAZIONI = [
     },
     {
         "slug": "set-nascita", "nome": "Set nascita", "icona": "gift-2",
-        "foto": "la-bottoneria-brescia-10.jpg", "galleria": ["bottoneria-7.jpg", "IMG_8666.jpg", "casa.jpg", "IMG_8683.jpg"],
+        "foto": "la-bottoneria-brescia-10.jpg", "galleria": ["nascita-1.jpeg", "nascita-8.jpeg", "nascita-2.jpeg", "nascita-10g.jpeg", "nascita-7.jpeg", "nascita-3.jpeg", "nascita-9g.jpg", "nascita-4.jpeg", "nascita-5.jpeg", "nascita-6.jpeg", "borsa-cambio-3.jpeg", "borsa-cambio-2.jpeg", "borsa-cambio-1.jpeg", "bottoneria-7.jpg", "IMG_8666.jpg", "casa.jpg", "IMG_8683.jpg"],
         "breve": "Il corredo per il nuovo arrivato in 100% cotone: lavette, bavagli, lenzuolini e fiocco nascita.",
         "intro": ("Per accogliere il nuovo arrivato prepariamo un corredo coordinato, cucito in puro cotone e "
                   "personalizzato con il nome o le iniziali. Un regalo unico anche per chi diventa nonno, zia o amica."),
@@ -222,7 +222,7 @@ PERSONALIZZAZIONI = [
     },
     {
         "slug": "regali-maestre", "nome": "Regali per le maestre", "icona": "gift",
-        "foto": "regalo-maestra-best-teacher.jpg", "galleria": ["bottoneria-3.jpg", "idee_regalo.jpg", "image00034.jpg", "pochette.jpg"],
+        "foto": "regalo-maestra-best-teacher.jpg", "galleria": ["pochette-1g.jpeg", "tote-bag-2.jpeg", "tote-bag-1.jpeg", "tote-bag-3.jpeg", "tasca-interna.jpeg", "bottoneria-3.jpg", "idee_regalo.jpg", "image00034.jpg", "pochette.jpg"],
         "breve": "Grembiule personalizzato, pochette, shopper e sacche ricamate per dire grazie alle maestre a fine anno.",
         "intro": ("Per la fine dell'anno o per Natale, un pensiero fatto a mano per le maestre: grembiule personalizzato, pochette, "
                   "shopper e sacche con l'iniziale, il nome della classe o una dedica ricamata."),
