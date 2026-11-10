@@ -618,3 +618,4 @@ body.lb-blocco { overflow: hidden; }
 .piede .script { color: #fff; font-size: 1.55rem; }
 .quattro span { top: auto; bottom: 26px; transform: translateX(-50%); }
 .ord-num { font-weight: 700; font-size: 3rem; }
+.piede-marchio img { width: 120px; height: 120px; background: none; border-radius: 0; padding: 0; margin-bottom: 14px; }

@@ -196,7 +196,7 @@ def pagina(file, titolo, descrizione, corpo, attivo=None, extra_head=""):
 <footer class="piede">
   <div class="piede-in wrap">
     <div class="piede-col piede-marchio">
-      <img src="logo.png" width="300" height="300" alt="{NEGOZIO['nome']} merceria" loading="lazy">
+      <img src="logo-bianco.png" width="300" height="300" alt="{NEGOZIO['nome']} merceria" loading="lazy">
       <p class="script">{CARTELLINO['titolo']}</p>
       <p>Creati e confezionati artigianalmente nella nostra sartoria.</p>
       <p class="social">{social}</p>
@@ -626,6 +626,11 @@ def main():
     shutil.copy(SRC / "style.css", OUT / "style.css")
     shutil.copy(SRC / "main.js", OUT / "main.js")
     shutil.copy(ROOT / "logo" / "logo-300.png", OUT / "logo.png")
+    # versione bianca del logo per il piè di pagina (stessa forma, colore bianco)
+    logo = Image.open(ROOT / "logo" / "logo-300.png").convert("RGBA")
+    bianco = Image.new("RGBA", logo.size, (255, 255, 255, 0))
+    bianco.putalpha(logo.getchannel("A"))
+    bianco.save(OUT / "logo-bianco.png")
     shutil.copy(ROOT / "logo" / "favicon.png", OUT / "favicon.png")
     (OUT / ".nojekyll").write_text("")
 
