@@ -232,6 +232,10 @@ PERSONALIZZAZIONI = [
     },
 ]
 
+# Ordine in cui compaiono le personalizzazioni (in home e nelle altre pagine)
+ORDINE_PERSONALIZZAZIONI = ["set-nascita", "set-asilo", "grembiulini", "regali-maestre", "nomi-ricamati"]
+PERSONALIZZAZIONI.sort(key=lambda p: ORDINE_PERSONALIZZAZIONI.index(p["slug"]))
+
 # Testo sopra le quattro categorie della merceria in home
 MERCERIA_INTRO = ("Alla Bottoneria Merceria di Brescia trovi tutto quello che puoi desiderare da una merceria: "
                   "bottoni, nastri, pizzi, elastici, aghi, fili, cotonine americane di qualità, filati DMC "
