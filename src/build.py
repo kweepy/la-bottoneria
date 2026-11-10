@@ -219,7 +219,7 @@ def pagina(file, titolo, descrizione, corpo, attivo=None, extra_head=""):
   </div>
   <div class="legale wrap">
     <span>© <span data-anno>2026</span> {NEGOZIO['nome']}</span>
-    <span>P.IVA {NEGOZIO['piva']} · REA {NEGOZIO['rea']}</span>
+    <span>{NEGOZIO['ragione_sociale']} · P.IVA {NEGOZIO['piva']} · REA {NEGOZIO['rea']}</span>
     <span class="legale-link"><a href="privacy.html">Privacy</a> · <a href="cookie.html">Cookie</a></span>
   </div>
 </footer>
