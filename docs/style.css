@@ -16,7 +16,7 @@
   --ombra: 0 1px 2px rgba(42, 42, 37, .06), 0 8px 24px rgba(42, 42, 37, .08);
   --serif: "Fraunces", Georgia, "Times New Roman", serif;
   --sans: "Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --script: "Caveat", "Segoe Script", cursive;
+  --script: "Dancing Script", "Snell Roundhand", "Segoe Script", cursive;
   --larghezza: 1180px;
 }
 
@@ -319,7 +319,7 @@ address { font-style: normal; }
 .piede a { color: #fff; }
 .piede a:hover { color: var(--filo-chiaro); }
 .piede-in { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1.1fr; gap: 36px; padding-block: 56px 40px; }
-.piede h2 { font-family: var(--sans); font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: #fff; margin-bottom: 14px; }
+.piede h2 { font-family: var(--serif); font-size: 1rem; letter-spacing: .14em; text-transform: uppercase; color: #fff; margin-bottom: 14px; }
 .piede ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
 .piede ul a { text-decoration: none; }
 .piede-marchio img { width: 96px; height: 96px; background: var(--carta); border-radius: 50%; padding: 8px; margin-bottom: 12px; }
@@ -611,3 +611,10 @@ address { font-style: normal; }
 .lb-succ { right: 12px; top: 50%; margin-top: -24px; }
 .lb-conta { position: absolute; bottom: 16px; left: 0; right: 0; text-align: center; color: #fff; font-size: .9rem; letter-spacing: .08em; margin: 0; }
 body.lb-blocco { overflow: hidden; }
+
+/* ritocchi */
+.marchio:hover { color: var(--verde-scuro); }
+.script { font-weight: 700; }
+.piede .script { color: #fff; font-size: 1.55rem; }
+.quattro span { top: auto; bottom: 26px; transform: translateX(-50%); }
+.ord-num { font-weight: 700; font-size: 3rem; }

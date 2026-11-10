@@ -169,7 +169,7 @@ def pagina(file, titolo, descrizione, corpo, attivo=None, extra_head=""):
 <link rel="icon" href="favicon.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 {extra_head}
 </head>
@@ -454,8 +454,8 @@ def home():
 def prodotti():
     corpo = f"""
 <section class="testa-pagina wrap">
-  <p class="occhiello">Prodotti</p>
-  <h1>Tutte le categorie</h1>
+  <p class="occhiello">Tutte le categorie</p>
+  <h1>Prodotti</h1>
   <p class="lead">Molti articoli sono pezzi unici o si realizzano su richiesta: scrivici per sapere cosa c'è disponibile, ti mandiamo le foto.</p>
   {DIVISORE}
 </section>
@@ -501,8 +501,8 @@ def categoria(c):
 def personalizzazioni():
     corpo = f"""
 <section class="testa-pagina wrap">
-  <p class="occhiello">Personalizzazioni</p>
-  <h1>{SCEGLI_TU['titolo']}</h1>
+  <p class="occhiello">{SCEGLI_TU['titolo']}</p>
+  <h1>Personalizzazioni</h1>
   <p class="lead">{SCEGLI_TU['testo']}</p>
   {DIVISORE}
 </section>
@@ -560,8 +560,8 @@ def pagina_pers(p):
 def chi_siamo():
     corpo = f"""
 <section class="testa-pagina wrap">
-  <p class="occhiello">Chi siamo</p>
-  <h1>La Bottoneria Merceria a Brescia</h1>
+  <p class="occhiello">La Bottoneria Merceria a Brescia</p>
+  <h1>Chi siamo</h1>
   {DIVISORE}
 </section>
 <section class="feature">
@@ -581,8 +581,8 @@ def contatti():
     q = quote(f"{NEGOZIO['indirizzo']}, {NEGOZIO['cap_citta']}")
     corpo = f"""
 <section class="testa-pagina wrap">
-  <p class="occhiello">Contatti</p>
-  <h1>Dove trovarci</h1>
+  <p class="occhiello">Dove trovarci</p>
+  <h1>Contatti</h1>
   {DIVISORE}
 </section>
 <section class="wrap contatti-griglia">

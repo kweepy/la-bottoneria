@@ -151,10 +151,10 @@ HERO = [
      "sotto": "Merceria a Brescia da 35 anni",
      "bottone": ("Scopri la nostra storia", "chi-siamo.html")},
     {"foto": "bottoneria-1.jpg", "riga": "Su misura per te", "titolo": "Set asilo",
-     "sotto": "Sacca, bavaglia e grembiulino con il nome del tuo bambino",
+     "sotto": "Grembiulino, sacca e bavaglia in 100% cotone e con il nome del tuo bambino",
      "bottone": ("Scopri il set asilo", "set-asilo.html")},
     {"foto": "la-bottoneria-brescia-7.jpg", "riga": "Su misura per te", "titolo": "Set nascita",
-     "sotto": "Il corredo per il nuovo arrivato, scelto e ricamato con te",
+     "sotto": "Il corredo in 100% cotone per il nuovo arrivato, scelto e ricamato con te",
      "bottone": ("Scopri il set nascita", "set-nascita.html")},
 ]
 
