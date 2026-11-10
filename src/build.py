@@ -170,9 +170,8 @@ def pagina(file, titolo, descrizione, corpo, attivo=None, extra_head=""):
 {canon}
 <meta name="theme-color" content="#355743">
 <link rel="icon" href="favicon.png" type="image/png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/nunito-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
 {extra_head}
 </head>
@@ -221,6 +220,7 @@ def pagina(file, titolo, descrizione, corpo, attivo=None, extra_head=""):
   <div class="legale wrap">
     <span>© <span data-anno>2026</span> {NEGOZIO['nome']}</span>
     <span>P.IVA {NEGOZIO['piva']} · REA {NEGOZIO['rea']}</span>
+    <span class="legale-link"><a href="privacy.html">Privacy</a> · <a href="cookie.html">Cookie</a></span>
   </div>
 </footer>
 <a class="wa-float" href="{wa()}" target="_blank" rel="noopener" aria-label="Scrivici su WhatsApp">{ICONA_WA}</a>
@@ -613,6 +613,114 @@ def contatti():
     pagina("contatti.html", "Contatti", f"Indirizzo, orari e contatti della Bottoneria: {NEGOZIO['indirizzo']}, {NEGOZIO['cap_citta']}. Scrivici su WhatsApp.", corpo, attivo="contatti.html", extra_head=jsonld())
 
 
+def _legale(file, titolo, occhiello, descrizione, sezioni):
+    corpo_sez = "".join(f"<section><h2>{t}</h2>{c}</section>" for t, c in sezioni)
+    corpo = f"""
+<section class="testa-pagina wrap">
+  <p class="occhiello">{occhiello}</p>
+  <h1>{titolo}</h1>
+  {DIVISORE}
+</section>
+<article class="wrap legale-testo">
+  {corpo_sez}
+  <p class="legale-data">Ultimo aggiornamento: {NEGOZIO['privacy_aggiornata']}</p>
+</article>
+"""
+    pagina(file, titolo, descrizione, corpo)
+
+
+def privacy():
+    n = NEGOZIO
+    mail = f'<a href="mailto:{n["email"]}">{n["email"]}</a>'
+    sezioni = [
+        ("Chi tratta i tuoi dati",
+         f"<p>Il titolare del trattamento è <strong>{n['ragione_sociale']}</strong>, {n['sede_legale']}, "
+         f"P.IVA {n['piva']}. Per qualsiasi domanda sui tuoi dati puoi scrivere a {mail} "
+         f"o chiamare il numero {n['whatsapp_visibile']}.</p>"),
+        ("Quali dati raccogliamo e perché",
+         "<p>Questo sito è una vetrina: <strong>non ha moduli da compilare, aree riservate, newsletter "
+         "né strumenti di statistica o di profilazione</strong>. I dati che trattiamo sono solo questi:</p>"
+         "<ul>"
+         "<li><strong>Dati di navigazione.</strong> Come per ogni sito, il server che lo ospita registra per brevi periodi "
+         "alcuni dati tecnici (indirizzo IP, data e ora, pagina richiesta, tipo di browser). Servono solo a far funzionare "
+         "il sito e a garantirne la sicurezza; non li usiamo per identificarti.</li>"
+         "<li><strong>Dati che ci comunichi tu.</strong> Se ci scrivi su WhatsApp o per email, o ci telefoni, trattiamo "
+         "il tuo nome, il tuo recapito e il contenuto della richiesta. Per realizzare un articolo personalizzato ci servono "
+         "anche le indicazioni che ci dai: per esempio il nome o le iniziali da ricamare e le misure del bambino.</li>"
+         "</ul>"
+         "<p>Usiamo questi dati solo per risponderti, preparare un preventivo, realizzare e consegnare l'ordine e "
+         "rispettare gli obblighi fiscali e contabili.</p>"),
+        ("Su quale base li trattiamo",
+         "<ul>"
+         "<li>per rispondere alle tue richieste ed eseguire l'ordine: l'esecuzione di un contratto o di misure "
+         "precontrattuali richieste da te (art. 6, par. 1, lett. b del Regolamento UE 2016/679);</li>"
+         "<li>per fatture e contabilità: un obbligo di legge (art. 6, par. 1, lett. c);</li>"
+         "<li>per il funzionamento e la sicurezza del sito: il nostro legittimo interesse (art. 6, par. 1, lett. f).</li>"
+         "</ul>"
+         "<p>Comunicarci i dati è facoltativo, ma senza di essi non possiamo rispondere o realizzare l'ordine.</p>"),
+        ("Dati di bambini",
+         "<p>Molti nostri articoli sono per bambini. Il nome da ricamare e le misure ci vengono comunicati dal genitore "
+         "o da chi ne fa le veci e li usiamo soltanto per realizzare il prodotto richiesto.</p>"),
+        ("WhatsApp, mappa e social",
+         "<p>I pulsanti WhatsApp aprono l'applicazione di WhatsApp (WhatsApp Ireland Ltd.): il sito non le trasmette "
+         "nulla finché non scegli tu di scriverci, e da quel momento vale anche l'informativa di WhatsApp. "
+         "Lo stesso vale per i collegamenti a Instagram, Facebook e Google Maps, che ti portano su siti esterni. "
+         "La mappa nella pagina Contatti viene caricata solo se premi «Mostra la mappa»: i dettagli sono nella "
+         "<a href=\"cookie.html\">pagina Cookie</a>.</p>"),
+        ("A chi comunichiamo i dati",
+         f"<p>Non vendiamo e non diffondiamo i tuoi dati. Possono venirne a conoscenza, solo per quanto necessario: "
+         f"il fornitore che ospita il sito ({n['hosting']}), il nostro consulente fiscale e, se chiedi la spedizione, "
+         f"il corriere. I servizi di terzi che scegli di usare (WhatsApp, Google Maps, Instagram, Facebook) "
+         f"possono trattare i dati anche fuori dall'Unione Europea, secondo le rispettive informative.</p>"),
+        ("Per quanto tempo li conserviamo",
+         "<p>Messaggi e richieste: per il tempo necessario a risponderti e a completare l'ordine, e in seguito per "
+         "l'eventuale assistenza. Documenti fiscali e contabili: 10 anni, come richiede la legge. "
+         "I dati tecnici di navigazione sono conservati dal fornitore di hosting per periodi brevi.</p>"),
+        ("I tuoi diritti",
+         f"<p>Puoi chiederci in ogni momento di accedere ai tuoi dati, correggerli, cancellarli, limitarne il trattamento, "
+         f"riceverli in formato elettronico o opporti al loro uso, scrivendo a {mail}. "
+         f"Se ritieni che i tuoi dati siano trattati in modo non corretto puoi presentare un reclamo al "
+         f"<a href=\"https://www.garanteprivacy.it\" target=\"_blank\" rel=\"noopener\">Garante per la protezione dei dati personali</a>.</p>"),
+    ]
+    _legale("privacy.html", "Privacy", "Informativa sul trattamento dei dati personali",
+            "Informativa privacy della Bottoneria, merceria a Brescia: quali dati trattiamo, perché e quali sono i tuoi diritti.",
+            sezioni)
+
+
+def cookie():
+    sezioni = [
+        ("In breve",
+         "<p><strong>Questo sito non installa cookie di profilazione né cookie statistici, e non usa strumenti che "
+         "tracciano la tua navigazione.</strong> Per questo non ti viene mostrato alcun banner di consenso.</p>"),
+        ("Cosa sono i cookie",
+         "<p>I cookie sono piccoli file che un sito può salvare sul tuo dispositivo per ricordare informazioni tra "
+         "una visita e l'altra. Alcuni sono tecnici, cioè necessari al funzionamento; altri servono a fare statistiche "
+         "o a mostrare pubblicità personalizzata, e richiedono il tuo consenso.</p>"),
+        ("Cosa fa questo sito",
+         "<ul>"
+         "<li><strong>Cookie propri:</strong> nessuno. Il sito non salva nulla sul tuo dispositivo.</li>"
+         "<li><strong>Caratteri e immagini:</strong> sono ospitati direttamente sul sito, senza collegamenti a servizi esterni.</li>"
+         "<li><strong>Statistiche e pubblicità:</strong> non usiamo Google Analytics, pixel dei social o strumenti simili.</li>"
+         "</ul>"),
+        ("La mappa di Google",
+         "<p>Nella pagina Contatti la mappa di Google Maps <strong>non viene caricata finché non premi «Mostra la mappa»</strong>. "
+         "Premendo il pulsante, il tuo browser si collega ai server di Google, che riceve il tuo indirizzo IP e può "
+         "installare propri cookie, anche di profilazione. Se preferisci evitarlo puoi usare il collegamento "
+         "«Apri in Google Maps» oppure l'indirizzo scritto nella pagina. "
+         "Informativa di Google: <a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener\">policies.google.com/privacy</a>.</p>"),
+        ("Collegamenti a siti esterni",
+         "<p>I pulsanti WhatsApp e i collegamenti a Instagram, Facebook e Google Maps ti portano su servizi di altre "
+         "società, che usano i propri cookie secondo le loro regole. Il sito non trasmette loro alcun dato prima del tuo clic.</p>"),
+        ("Come gestire i cookie dal browser",
+         "<p>Puoi in ogni momento vedere, bloccare o cancellare i cookie dalle impostazioni del tuo browser "
+         "(Chrome, Safari, Firefox, Edge), nella sezione dedicata a privacy e sicurezza.</p>"
+         "<p>Per tutto il resto vale la nostra <a href=\"privacy.html\">informativa sulla privacy</a>.</p>"),
+    ]
+    _legale("cookie.html", "Cookie", "Informativa sui cookie",
+            "Informativa sui cookie della Bottoneria: il sito non usa cookie di profilazione né statistici.",
+            sezioni)
+
+
 def pagina_404():
     corpo = f"""<section class="testa-pagina wrap">
   <p class="script hero-script">ops, un filo si è perso…</p>
@@ -627,7 +735,12 @@ def pagina_404():
 def main():
     OUT.mkdir(exist_ok=True)
     (OUT / "img").mkdir(exist_ok=True)
-    shutil.copy(SRC / "style.css", OUT / "style.css")
+    # i caratteri sono ospitati sul sito: nessun collegamento a servizi esterni
+    (OUT / "style.css").write_text((SRC / "fonts.css").read_text(encoding="utf-8")
+                                   + (SRC / "style.css").read_text(encoding="utf-8"), encoding="utf-8")
+    (OUT / "fonts").mkdir(exist_ok=True)
+    for f in (SRC / "fonts").glob("*.woff2"):
+        shutil.copy(f, OUT / "fonts" / f.name)
     shutil.copy(SRC / "main.js", OUT / "main.js")
     shutil.copy(ROOT / "logo" / "logo-300.png", OUT / "logo.png")
     # versione bianca del logo per il piè di pagina (stessa forma, colore bianco)
@@ -648,6 +761,8 @@ def main():
         pagina_pers(p)
     chi_siamo()
     contatti()
+    privacy()
+    cookie()
     pagina_404()
 
     # file per l'hosting (Aruba): pagina di errore, mappa del sito per i motori di ricerca

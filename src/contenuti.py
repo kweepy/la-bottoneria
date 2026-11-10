@@ -23,6 +23,11 @@ NEGOZIO = {
     "instagram": "https://www.instagram.com/labottoneria_brescia/",   # vuoto = non mostrato
     "facebook": "https://www.facebook.com/labottoneria/",
     "sito": "https://www.labottoneria.it",   # indirizzo definitivo del sito
+    # --- dati per le pagine Privacy e Cookie ---
+    "ragione_sociale": "La Bottoneria",      # DA COMPLETARE: denominazione esatta dell'attività (come in visura)
+    "sede_legale": "Via Cremona, 76 – 25124 Brescia",
+    "hosting": "Aruba S.p.A.",               # chi ospita il sito
+    "privacy_aggiornata": "10 novembre 2026",
 }
 
 # Orari: giorno -> lista di fasce "HH:MM-HH:MM" (lista vuota = chiuso)

@@ -619,3 +619,12 @@ body.lb-blocco { overflow: hidden; }
 .quattro span { top: auto; bottom: 26px; transform: translateX(-50%); }
 .ord-num { font-weight: 700; font-size: 3rem; }
 .piede-marchio img { width: 120px; height: 120px; background: none; border-radius: 0; padding: 0; margin-bottom: 14px; }
+
+/* ================= PAGINE LEGALI ================= */
+.legale-testo { max-width: 780px; padding-bottom: clamp(48px, 8vw, 96px); }
+.legale-testo section { margin-bottom: 30px; }
+.legale-testo h2 { font-size: 1.35rem; margin-bottom: .5em; }
+.legale-testo ul { padding-left: 1.2em; margin: 0 0 1em; display: grid; gap: 8px; }
+.legale-data { color: var(--tenue); font-size: .9rem; border-top: 1px dashed var(--bordo); padding-top: 16px; }
+.legale-link a { text-decoration: none; }
+.legale-link a:hover { text-decoration: underline; }
